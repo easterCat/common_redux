@@ -21,6 +21,10 @@ module.exports = { //注意这里是exports不是export
                 loader: 'style-loader!css-loader'
             },
             {
+                test: /.*\.(gif|png|jpe?g|svg)$/,
+                loaders: 'url-loader?name=images/[name].[ext]&limit=10000!image-webpack-loader' //10KB
+            },
+            {
                 test: /index\.html/,
                 loaders: 'file-loader?name=index.html'
             }
@@ -28,7 +32,7 @@ module.exports = { //注意这里是exports不是export
     },
     //webpack-dev-server配置
     devServer: {
-        contentBase: './dist',//为一个目录下的文件提供本地服务器，在这里设置其所在目录
+        // contentBase: './dist',//为一个目录下的文件提供本地服务器，在这里设置其所在目录
         historyApiFallback: true,//跳转将指向index.html
         inline: true,//源文件改变,会自动刷新页面
         port: 1234,//设置默认监听端口，如果省略，默认为"8080"

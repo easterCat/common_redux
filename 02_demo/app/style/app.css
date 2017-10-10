@@ -56,6 +56,24 @@ div {
     color: gray;
 }
 
+.text {
+    float: left;
+    height: 30px;
+}
+
+.avatar {
+    float: right;
+    width: 30px;
+    height: 30px;
+
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 90%;
+}
+
 .content {
     position: fixed;
     top: 60px;
@@ -64,6 +82,27 @@ div {
     bottom: 0;
     padding: 30px;
     color: gray;
+}
+
+table {
+    width: 100%;
+}
+
+tr.head {
+    width: 100%;
+    height: 30px;
+    background: #c8e0e3;
+}
+
+tr.body {
+    width: 100%;
+    height: 30px;
+}
+
+td, th {
+    width: 25%;
+    padding: 0;
+    margin: 0;
 }
 
 
