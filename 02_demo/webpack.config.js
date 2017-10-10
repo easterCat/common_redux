@@ -17,6 +17,10 @@ module.exports = { //注意这里是exports不是export
                 loader: 'babel-loader'
             },
             {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+            {
                 test: /index\.html/,
                 loaders: 'file-loader?name=index.html'
             }

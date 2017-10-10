@@ -6,7 +6,13 @@ import React from 'react';
 class Header extends React.Component {
     render() {
         return (
-            <div>this is header</div>
+            <div className="header">
+               <div className="header-con">
+                   <div className="user">
+                       欢迎您！
+                   </div>
+               </div>
+            </div>
         )
     }
 }
