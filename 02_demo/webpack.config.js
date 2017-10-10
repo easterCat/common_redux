@@ -10,11 +10,17 @@ module.exports = { //注意这里是exports不是export
         filename: 'app.js', //打包后的js文件名
     },
     module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/, //屏蔽不需要处理的文件（文件夹）（可选）
-            loader: 'babel-loader'
-        }]
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/, //屏蔽不需要处理的文件（文件夹）（可选）
+                loader: 'babel-loader'
+            },
+            {
+                test: /index\.html/,
+                loaders: 'file-loader?name=index.html'
+            }
+        ]
     },
     //webpack-dev-server配置
     devServer: {
