@@ -21,6 +21,10 @@ module.exports = { //注意这里是exports不是export
                 loader: 'style-loader!css-loader'
             },
             {
+                test: /\.scss$/,
+                loader: 'style-loader!css-loader!sass-loader'
+            },
+            {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
                 loaders: 'url-loader?name=images/[name].[ext]&limit=10000!image-webpack-loader' //10KB
             },
