@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import {matchPath} from 'react-router-dom';
-import Header from './layout/Header';
-import Content from './layout/Content';
-import Sidebar from './layout/Sidebar';
+import Header from '../layout/Header';
+import Content from '../layout/Content';
+import Sidebar from '../layout/Sidebar';
 import {Layout} from 'antd';
 
 class Home extends React.Component {

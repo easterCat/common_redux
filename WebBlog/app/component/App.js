@@ -2,7 +2,7 @@
  * Created by easterCat on 2017/10/13.
  */
 import React from 'react';
-import Home from './Home';
+import Home from './Home/Home';
 import Login from './user/Login';
 import {Route} from 'react-router-dom'
 import '../style/app.scss';
