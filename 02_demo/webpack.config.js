@@ -3,18 +3,18 @@
  */
 
 //__dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
-module.exports = { //注意这里是exports不是export
-    entry: __dirname + "/app/app.js", //唯一入口文件
-    output: { //输出目录
+module.exports = {
+    entry: __dirname + "/app/app.js",
+    output: {
         path: __dirname + "/dist", //打包后的js文件存放的地方
-        filename: 'app.js', //打包后的js文件名
+        filename: 'app.js',
     },
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/, //屏蔽不需要处理的文件（文件夹）（可选）
-                loader: 'babel-loader'
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loaders: 'babel-loader',
             },
             {
                 test: /\.css$/,
@@ -23,6 +23,10 @@ module.exports = { //注意这里是exports不是export
             {
                 test: /\.scss$/,
                 loader: 'style-loader!css-loader!sass-loader'
+            },
+            {
+                test: /\.less$/,
+                loader: 'style-loader!css-loader!less-loader'
             },
             {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
