@@ -31,7 +31,8 @@ class Home extends React.Component {
     }
 
     componentWillMount() {
-        if (!this.res || !this.res.length || this.ress.indexOf(this.sub) === -1) {
+        console.log(this.res);
+        if (!this.res || !this.res.length || this.ress.indexOf(this.res) === -1) {
             this.props.history.replace(`/home/content01`)
         }
     }
@@ -44,7 +45,7 @@ class Home extends React.Component {
                     collapsible
                     collapsed={this.state.collapsed}
                 >
-                    <Sidebar/>
+                    <Sidebar res= {this.res}/>
                 </Layout.Sider>
                 <Layout>
                     <Layout.Header style={{background: '#fff', padding: 0}}>
