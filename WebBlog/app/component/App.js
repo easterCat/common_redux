@@ -4,7 +4,8 @@
 import React from 'react';
 import Home from './Home';
 import Login from './user/Login';
-import {Route} from 'react-router-dom';
+import {Route} from 'react-router-dom'
+import '../style/app.scss';
 
 class App extends React.Component {
     constructor() {
@@ -18,7 +19,7 @@ class App extends React.Component {
         } = this.props;
         if (location.pathname === '/home' || location.pathname === '/') {
             history.replace('/home')
-        } else {
+        } else if (location.pathname === '/login') {
             history.replace('/login')
         }
     }

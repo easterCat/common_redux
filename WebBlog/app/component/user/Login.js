@@ -2,17 +2,15 @@
  * Created by easterCat on 2017/10/13.
  */
 import React from 'react';
-import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
+import {Form, Icon, Input, Button, Checkbox} from 'antd';
 const FormItem = Form.Item;
 
 class Logining extends React.Component {
-    constructor({user, login, history}) {
-        super();
+    constructor(props) {
+        super(props);
 
         this.handleSubmit = (e) => {
             const {
-                match,
-                location,
                 history
             } = this.props;
 
@@ -33,12 +31,6 @@ class Logining extends React.Component {
             getFieldDecorator
         } = this.props.form;
 
-        let loginObject = {
-            username: null,
-            password: null,
-            error: {},
-            loading: false
-        };
         return (
             <div className="login">
                 <Form onSubmit={this.handleSubmit} className="login-form">
