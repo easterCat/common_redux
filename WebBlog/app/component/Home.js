@@ -2,7 +2,6 @@
  * Created by easterCat on 2017/10/9.
  */
 import React from 'react';
-import {Route} from 'react-router-dom';
 import Header from './layout/Header';
 import Content from './layout/Content';
 import Sidebar from './layout/Sidebar';
@@ -24,7 +23,7 @@ class Home extends React.Component {
     }
 
     componentWillMount() {
-        this.props.history.replace(`/home/manager`)
+        this.props.history.replace(`/home/content01`)
     }
 
     render() {

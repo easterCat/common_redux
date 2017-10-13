@@ -13,7 +13,6 @@ class App extends React.Component {
 
     componentDidMount() {
         const {
-            match,
             location,
             history
         } = this.props;
