@@ -1,10 +1,11 @@
 /**
- * Created by easterCat on 2017/10/10.
+ * Created by easterCat on 2017/10/13.
  */
+
 import React from 'react';
 import {Table} from 'antd';
 
-class Content extends React.Component {
+class Content01 extends React.Component {
     render() {
         const columns = [{
             title: '姓名',
@@ -41,4 +42,4 @@ class Content extends React.Component {
         )
     }
 }
-export default Content;
+export default Content01;
