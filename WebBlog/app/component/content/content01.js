@@ -20,6 +20,7 @@ class Content01 extends React.Component {
                 visible: true,
                 data: new Date()
             });
+            console.log('hello world');
         };
         this.closeModal = () => {
             this.setState({
