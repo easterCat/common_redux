@@ -3,43 +3,51 @@
  */
 
 import React from 'react';
-import {Table} from 'antd';
+import {connect} from 'react-redux';
+import {addOneArticle} from './content01.actions';
 
 class Content02 extends React.Component {
-    render() {
-        const columns = [{
-            title: '姓名',
-            dataIndex: 'name',
-            key: 'name',
-        }, {
-            title: '年龄',
-            dataIndex: 'age',
-            key: 'age',
-        }, {
-            title: '电话号码',
-            dataIndex: 'number',
-            key: 'number',
-        }, {
-            title: '邮箱',
-            dataIndex: 'email',
-            key: 'email',
-        }];
+    constructor(props) {
+        super(props);
 
-        const data = [];
-        for (let i = 1; i < 15; i++) {
-            let obj = {
-                name: '22222',
-                age: 32,
-                number: 123456789,
-                email: '123456789@163.com',
-            };
-            obj.key = i;
-            data.push(obj);
+        let data = {};
+        this.titleChange = (e) => {
+            data.title = e.target.value;
+        };
+        this.contentChange = (e) => {
+            data.content = e.target.value;
+        };
+
+        this.confirmBtn = () => {
+            this.props.addOneArticle(data);
         }
+    }
+
+
+    render() {
 
         return (
-            <Table columns={columns} dataSource={data}/>
+            <div>
+                <div>
+                    <span>标题</span>
+                    <input type="text" onChange={this.titleChange}/>
+                </div>
+                <div>
+                    <span>内容</span>
+                    <textarea cols="30" rows="10" onChange={this.contentChange}></textarea>
+                </div>
+                <div>
+                    <button onClick={this.confirmBtn}>确定</button>
+                </div>
+            </div>
         )
     }
 }
-export default Content02;
+const mapStateToProps = (state) => {
+    return {}
+};
+const mapActionCreators = {
+    addOneArticle
+};
+
+export default connect(mapStateToProps, mapActionCreators)(Content02);
