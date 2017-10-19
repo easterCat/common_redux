@@ -43,6 +43,6 @@ module.exports = {
         // contentBase: './dist',//为一个目录下的文件提供本地服务器，在这里设置其所在目录
         historyApiFallback: true,//跳转将指向index.html
         inline: true,//源文件改变,会自动刷新页面
-        port: 1234,//设置默认监听端口，如果省略，默认为"8080"
+        port: 3002,//设置默认监听端口，如果省略，默认为"8080"
     },
 };

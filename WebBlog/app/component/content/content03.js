@@ -3,43 +3,41 @@
  */
 
 import React from 'react';
-import {Table} from 'antd';
+import {connect} from 'react-redux';
+import {Card, Col, Row} from 'antd';
+import {getAllArticles} from './content01.actions';
 
 class Content03 extends React.Component {
+
+    componentWillMount() {
+        this.props.getAllArticles();
+    }
+
     render() {
-        const columns = [{
-            title: '姓名',
-            dataIndex: 'name',
-            key: 'name',
-        }, {
-            title: '年龄',
-            dataIndex: 'age',
-            key: 'age',
-        }, {
-            title: '电话号码',
-            dataIndex: 'number',
-            key: 'number',
-        }, {
-            title: '邮箱',
-            dataIndex: 'email',
-            key: 'email',
-        }];
-
-        const data = [];
-        for (let i = 1; i < 15; i++) {
-            let obj = {
-                name: 'asdads',
-                age: 32,
-                number: 123456789,
-                email: '123456789@163.com',
-            };
-            obj.key = i;
-            data.push(obj);
-        }
-
+        const {articles} = this.props;
         return (
-            <Table columns={columns} dataSource={data}/>
+            <div>
+                <Row gutter={16}>
+                    {
+                        articles && articles.size ? articles.map(i => {
+                            return <Col xs={24} md={12} xl={8} key={i.get('_id')}>
+                                <Card title={i.get('title')} style={{marginBottom: 20, height: 260}}>
+                                    {i.get('content')}
+                                </Card>
+                            </Col>
+                        }) : null
+                    }
+                </Row>
+            </div>
         )
     }
 }
-export default Content03;
+const mapStateToProps = (state) => {
+    return {
+        articles: state.get('user').get('articles')
+    }
+};
+const mapActionCreators = {
+    getAllArticles
+};
+export default connect(mapStateToProps, mapActionCreators)(Content03);

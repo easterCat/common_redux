@@ -1,12 +1,12 @@
 /**
  * Created by easterCat on 2017/10/16.
  */
-import axios from 'axios';
-import $ from 'jquery';
-import config from '../../../app.config';
+import {server} from '../../../app.config';
+import {get, post, remove, update} from '../../util/netRequest';
 
 export const ADD_ONE_USER = 'ADD_ONE_USER';
 export const ADD_ONE_ARTICLE = 'ADD_ONE_ARTICLE';
+export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
 
 export function addOneUser(value) {
     return dispatch => {
@@ -18,14 +18,10 @@ export function addOneUser(value) {
 }
 
 export function addOneArticle(data) {
-    console.log(data);
-    return dispatch => {
-        return axios.post(`${config.server}/home/content02`, data)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
+    return post(`${server}/home/content02`, data, ADD_ONE_ARTICLE);
 }
+
+export function getAllArticles() {
+    return get(`${server}/home/content03`, GET_ALL_ARTICLES);
+}
+

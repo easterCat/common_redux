@@ -45,7 +45,7 @@ class Home extends React.Component {
                     collapsible
                     collapsed={this.state.collapsed}
                 >
-                    <Sidebar res= {this.res}/>
+                    <Sidebar res={this.res}/>
                 </Layout.Sider>
                 <Layout>
                     <Layout.Header style={{background: '#fff', padding: 0}}>
@@ -53,7 +53,12 @@ class Home extends React.Component {
                                 toggle={this.toggle}
                         />
                     </Layout.Header>
-                    <Layout.Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
+                    <Layout.Content className="r-b-content" style={{
+                        margin: '24px 16px',
+                        padding: 24,
+                        background: '#fff',
+                        minHeight: 280
+                    }}>
                         <Content/>
                     </Layout.Content>
                 </Layout>
