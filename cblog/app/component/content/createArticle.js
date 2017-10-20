@@ -39,9 +39,11 @@ class createArticle extends React.Component {
                         <Input type="text" placeholder="标题" onChange={this.titleChange}/>
                     </div>
                 </div>
-                <div>
-                    <span>内容</span>
-                    <Input type="textarea" placeholder="内容" rows={10} cols={30} onChange={this.contentChange}/>
+                <div className="form-item">
+                    <div className="form-label"><span>内容</span></div>
+                    <div className="form-input">
+                        <Input type="textarea" placeholder="内容" rows={10} cols={30} onChange={this.contentChange}/>
+                    </div>
                 </div>
                 <div>
                     <Button type="primary" onClick={this.confirmBtn}>确定</Button>
