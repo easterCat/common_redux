@@ -5,9 +5,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Card, Col, Row} from 'antd';
-import {getAllArticles} from './content01.actions';
+import {getAllArticles} from './article.actions';
 
-class Content03 extends React.Component {
+class Articles extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.goToArticle = (id) => {
+            const {history} = this.props;
+            history.push(`/home/article/${id}`);
+        }
+    }
 
     componentWillMount() {
         this.props.getAllArticles();
@@ -21,7 +30,9 @@ class Content03 extends React.Component {
                     {
                         articles && articles.size ? articles.map(i => {
                             return <Col xs={24} md={12} xl={8} key={i.get('_id')}>
-                                <Card title={i.get('title')} style={{marginBottom: 20, height: 260}}>
+                                <Card title={i.get('title')} style={{marginBottom: 20, height: 260}} onClick={() => {
+                                    this.goToArticle(i.get('_id'))
+                                }}>
                                     {i.get('content')}
                                 </Card>
                             </Col>
@@ -34,10 +45,10 @@ class Content03 extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        articles: state.get('user').get('articles')
+        articles: state.get('article').get('articles')
     }
 };
 const mapActionCreators = {
     getAllArticles
 };
-export default connect(mapStateToProps, mapActionCreators)(Content03);
+export default connect(mapStateToProps, mapActionCreators)(Articles);

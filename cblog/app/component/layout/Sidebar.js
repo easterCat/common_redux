@@ -23,16 +23,16 @@ class Sidebar extends React.Component {
                             <span>nav 1</span>
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key="content02">
-                        <NavLink to="/home/content02">
+                    <Menu.Item key="createArticle">
+                        <NavLink to="/home/createArticle">
                             <Icon type="video-camera"/>
-                            <span>nav 2</span>
+                            <span>新建文章</span>
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key="content03">
-                        <NavLink to="/home/content03">
+                    <Menu.Item key="articles">
+                        <NavLink to="/home/articles">
                             <Icon type="upload"/>
-                            <span>nav 3</span>
+                            <span>全部文章</span>
                         </NavLink>
                     </Menu.Item>
                 </Menu>

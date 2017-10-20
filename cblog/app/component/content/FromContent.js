@@ -4,7 +4,7 @@
 import React from 'react';
 import {Modal, Button, Form, Input} from 'antd';
 const FormItem = Form.Item;
-import {increaseAction} from './content01.actions';
+import {increaseAction} from './article.actions';
 
 class FromContent01 extends React.Component {
     constructor(props) {

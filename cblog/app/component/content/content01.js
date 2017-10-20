@@ -5,7 +5,7 @@
 import React from 'react';
 import {Table, Icon, Button} from 'antd';
 import {connect} from 'react-redux';
-import {addOneUser} from './content01.actions';
+import {addOneUser} from './article.actions';
 import FromContent from './FromContent';
 
 class Content01 extends React.Component {
@@ -76,7 +76,7 @@ class Content01 extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.get('user').get('data'),
+        data: state.get('article').get('data'),
     }
 };
 

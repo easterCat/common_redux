@@ -1,7 +1,7 @@
 /**
  * Created by easterCat on 2017/10/16.
  */
-import user from '../component/content/content01.reducer';
+import article from '../component/content/article.reducer';
 export default {
-    user
+    article
 }

@@ -5,8 +5,9 @@ import {server} from '../../../app.config';
 import {get, post, remove, update} from '../../util/netRequest';
 
 export const ADD_ONE_USER = 'ADD_ONE_USER';
-export const ADD_ONE_ARTICLE = 'ADD_ONE_ARTICLE';
+export const CREATE_ONE_ARTICLE = 'CREATE_ONE_ARTICLE';
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
+export const GET_ONE_ARTICLE = 'GET_ONE_ARTICLE';
 
 export function addOneUser(value) {
     return dispatch => {
@@ -17,11 +18,15 @@ export function addOneUser(value) {
     }
 }
 
-export function addOneArticle(data) {
-    return post(`${server}/home/content02`, data, ADD_ONE_ARTICLE);
+export function createOneArticle(data) {
+    return post(`${server}/home/createArticle`, data, CREATE_ONE_ARTICLE);
 }
 
 export function getAllArticles() {
-    return get(`${server}/home/content03`, GET_ALL_ARTICLES);
+    return get(`${server}/home/articles`, GET_ALL_ARTICLES);
+}
+
+export function getOneArticle() {
+    return get(`${server}/home/article`, GET_ONE_ARTICLE);
 }
 

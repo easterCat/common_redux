@@ -4,16 +4,18 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import Content01 from '../content/content01';
-import Content02 from '../content/content02';
-import Content03 from '../content/content03';
+import CreateArticle from '../content/createArticle';
+import Articles from '../content/Articles';
+import Article from '../content/Article';
 
 class Content extends React.Component {
     render() {
         return (
             <div>
                 <Route path="/home/Content01" component={Content01}/>
-                <Route path="/home/Content02" component={Content02}/>
-                <Route path="/home/Content03" component={Content03}/>
+                <Route path="/home/createArticle" component={CreateArticle}/>
+                <Route path="/home/articles" component={Articles}/>
+                <Route path="/home/article/:id" component={Article}/>
             </div>
         )
     }
