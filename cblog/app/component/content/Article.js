@@ -4,29 +4,38 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Card, Col, Row} from 'antd';
-import {getAllArticles} from './article.actions';
+import {getOneArticle} from './article.actions';
 class Article extends React.Component {
 
     componentWillMount() {
-        this.props.getAllArticles();
+        let id = this.props.match.params.id;
+        this.props.getOneArticle(id);
     }
 
     render() {
-        const {articles} = this.props;
+        const {article} = this.props;
         return (
             <div>
-                <div className="article-title"></div>
-                <div className="article-content"></div>
+                <div className="article-title">
+                    {
+                        article ? article.get('title') : '没有相应文章'
+                    }
+                </div>
+                <div className="article-content">
+                    {
+                        article ? article.get('content') : '没有相应文章'
+                    }
+                </div>
             </div>
         )
     }
 }
 const mapStateToProps = (state) => {
     return {
-        articles: state.get('article').get('articles')
+        article: state.get('article').get('article')
     }
 };
 const mapActionCreators = {
-    getAllArticles
+    getOneArticle
 };
 export default connect(mapStateToProps, mapActionCreators)(Article);

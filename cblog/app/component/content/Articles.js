@@ -14,6 +14,7 @@ class Articles extends React.Component {
 
         this.goToArticle = (id) => {
             const {history} = this.props;
+            console.log(id);
             history.push(`/home/article/${id}`);
         }
     }
@@ -30,10 +31,16 @@ class Articles extends React.Component {
                     {
                         articles && articles.size ? articles.map(i => {
                             return <Col xs={24} md={12} xl={8} key={i.get('_id')}>
-                                <Card title={i.get('title')} style={{marginBottom: 20, height: 260}} onClick={() => {
+                                <Card title={i.get('title')} style={{marginBottom: 20, height: 228}} onClick={() => {
                                     this.goToArticle(i.get('_id'))
                                 }}>
-                                    {i.get('content')}
+                                    <div className="custom-card">
+                                        <div className="card-mask"></div>
+                                        <p>
+                                            {i.get('content')}
+                                        </p>
+                                        <span>{new Date(i.get('createDate')).toLocaleString()}</span>
+                                    </div>
                                 </Card>
                             </Col>
                         }) : null

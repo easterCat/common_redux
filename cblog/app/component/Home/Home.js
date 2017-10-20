@@ -14,7 +14,7 @@ class Home extends React.Component {
         this.state = {
             collapsed: false
         };
-        this.ress = ['content01', 'createArticle', 'content03'];
+        this.ress = ['content01', 'createArticle', 'articles'];
         this.res = null;
         const match = matchPath(this.props.history.location.pathname, {
             path: '/home/:res'
@@ -31,7 +31,6 @@ class Home extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.res);
         if (!this.res || !this.res.length || this.ress.indexOf(this.res) === -1) {
             this.props.history.replace(`/home/content01`)
         }

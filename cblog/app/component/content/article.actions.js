@@ -26,7 +26,7 @@ export function getAllArticles() {
     return get(`${server}/home/articles`, GET_ALL_ARTICLES);
 }
 
-export function getOneArticle() {
-    return get(`${server}/home/article`, GET_ONE_ARTICLE);
+export function getOneArticle(id) {
+    return get(`${server}/home/article/${id}`, GET_ONE_ARTICLE);
 }
 
