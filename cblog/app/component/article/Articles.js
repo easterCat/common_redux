@@ -4,8 +4,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card, Col, Row} from 'antd';
-import {getAllArticles} from './article.actions';
+import {Card, Col, Row, Pagination, Icon} from 'antd';
+import {getAllArticles, deleteArticleById} from './article.actions';
 
 class Articles extends React.Component {
 
@@ -16,15 +16,28 @@ class Articles extends React.Component {
             const {history} = this.props;
             console.log(id);
             history.push(`/home/article/${id}`);
-        }
+        };
+
+        //页码改变后的回调函数
+        this.changePageNum = (page, pagesize) => {
+            console.log(page);
+            this.props.getAllArticles(page);
+        };
+
+        this.deleteOneArticle = (e, id) => {
+            e.stopPropagation();
+            this.props.deleteArticleById(id);
+        };
     }
 
     componentWillMount() {
-        this.props.getAllArticles();
+        //初始化加载前10篇文章
+        this.props.getAllArticles(1);
     }
 
     render() {
         const {articles} = this.props;
+
         return (
             <div>
                 <Row gutter={16}>
@@ -39,6 +52,9 @@ class Articles extends React.Component {
                                         <p>
                                             {i.get('content')}
                                         </p>
+                                        <Icon type="delete" onClick={(e) => {
+                                            this.deleteOneArticle(e, i.get('_id'))
+                                        }}/>
                                         <span>{new Date(i.get('createDate')).toLocaleString()}</span>
                                     </div>
                                 </Card>
@@ -46,6 +62,7 @@ class Articles extends React.Component {
                         }) : null
                     }
                 </Row>
+                <Pagination defaultCurrent={1} total={50} onChange={this.changePageNum}/>
             </div>
         )
     }
@@ -56,6 +73,7 @@ const mapStateToProps = (state) => {
     }
 };
 const mapActionCreators = {
-    getAllArticles
+    getAllArticles,
+    deleteArticleById
 };
 export default connect(mapStateToProps, mapActionCreators)(Articles);

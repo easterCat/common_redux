@@ -7,7 +7,8 @@ import {fromJS} from 'immutable';
 import {
     ADD_ONE_USER,
     GET_ALL_ARTICLES,
-    GET_ONE_ARTICLE
+    GET_ONE_ARTICLE,
+    DELETE_ONE_ARTICLE
 } from './article.actions';
 
 const initState = fromJS({
@@ -27,11 +28,14 @@ const handlers = {
         return article.set('data', article.get('data').push(fromJS(action.payload)));
     },
     [GET_ALL_ARTICLES]: (article, action) => {
-        console.log(action.payload);
         return article.set('articles', fromJS(action.payload));
     },
     [GET_ONE_ARTICLE]: (article, action) => {
         return article.set('article', fromJS(action.payload));
+    },
+    [DELETE_ONE_ARTICLE]: (article, action) => {
+        console.log(action.payload);
+        return article;
     }
 };
 

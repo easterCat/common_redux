@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import {Route} from 'react-router-dom';
-import Content01 from '../content/content01';
-import CreateArticle from '../content/createArticle';
-import Articles from '../content/Articles';
-import Article from '../content/Article';
+import Content01 from '../article/content01';
+import CreateArticle from '../article/createArticle';
+import Articles from '../article/Articles';
+import Article from '../article/Article';
 
 class Content extends React.Component {
     render() {

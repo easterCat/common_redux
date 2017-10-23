@@ -8,6 +8,7 @@ export const ADD_ONE_USER = 'ADD_ONE_USER';
 export const CREATE_ONE_ARTICLE = 'CREATE_ONE_ARTICLE';
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
 export const GET_ONE_ARTICLE = 'GET_ONE_ARTICLE';
+export const DELETE_ONE_ARTICLE = 'DELETE_ONE_ARTICLE';
 
 export function addOneUser(value) {
     return dispatch => {
@@ -22,11 +23,15 @@ export function createOneArticle(data) {
     return post(`${server}/home/createArticle`, data, CREATE_ONE_ARTICLE);
 }
 
-export function getAllArticles() {
-    return get(`${server}/home/articles`, GET_ALL_ARTICLES);
+export function getAllArticles(page) {
+    return get(`${server}/home/articles?where={"currentPage":"${page}"}`, GET_ALL_ARTICLES);
 }
 
 export function getOneArticle(id) {
     return get(`${server}/home/article/${id}`, GET_ONE_ARTICLE);
+}
+
+export function deleteArticleById(id) {
+    return remove(`${server}/home/article/${id}`, DELETE_ONE_ARTICLE)
 }
 
