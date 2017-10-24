@@ -21,15 +21,17 @@ class Article extends React.Component {
                         article ? article.get('title') : '没有相应文章'
                     }
                 </div>
-                <div className="article-content">
+                <pre className="article-content">
                     {
-                        article ? article.get('content') : '没有相应文章'
+                        article ? <div dangerouslySetInnerHTML={{__html: article.get('content')}} className="markdown-body" ></div> : '没有相应文章'
                     }
-                </div>
+                </pre>
             </div>
         )
     }
 }
+
+
 const mapStateToProps = (state) => {
     return {
         article: state.get('article').get('article')

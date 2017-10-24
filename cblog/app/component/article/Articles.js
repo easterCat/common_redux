@@ -49,9 +49,8 @@ class Articles extends React.Component {
                                 }}>
                                     <div className="custom-card">
                                         <div className="card-mask"></div>
-                                        <p>
-                                            {i.get('content')}
-                                        </p>
+                                        <pre dangerouslySetInnerHTML={{__html: i.get('content')}}
+                                             className="card-content markdown-body"></pre>
                                         <Icon type="delete" onClick={(e) => {
                                             this.deleteOneArticle(e, i.get('_id'))
                                         }}/>
