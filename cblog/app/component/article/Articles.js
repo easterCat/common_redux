@@ -55,10 +55,14 @@ class Articles extends React.Component {
                             <div dangerouslySetInnerHTML={{__html: i.get('content')}}
                                  className="item-content markdown-body">
                             </div>
+                            <div className="item-operate">
+                                <Icon className="delete-btn" type="delete" onClick={(e) => {
+                                    this.deleteOneArticle(e, i.get('_id'))
+                                }}/>
+                            </div>
                         </div>
                     }) : null
                 }
-
                 <div className="plu-Pagination">
                     <Pagination defaultCurrent={1} total={50} onChange={this.changePageNum}/>
                 </div>

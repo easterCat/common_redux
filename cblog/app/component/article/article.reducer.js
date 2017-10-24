@@ -34,8 +34,14 @@ const handlers = {
         return article.set('article', fromJS(action.payload));
     },
     [DELETE_ONE_ARTICLE]: (article, action) => {
-        console.log(action.payload);
-        return article;
+        console.log();
+        let as = article.get('articles');
+        let a = action.payload;
+        let index = as.findIndex(i => {
+            return i.get('_id') === a._id;
+        });
+        if (index === -1) return article;
+        return article.set('articles', as.delete(index));
     }
 };
 
