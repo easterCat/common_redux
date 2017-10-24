@@ -43,7 +43,7 @@ class Articles extends React.Component {
 
                 {
                     articles && articles.size ? articles.map(i => {
-                        return <div key={i.get('_id')} className="article-item" onClick={() => {
+                        return <div key={i.get('_id')} className="articles-item" onClick={() => {
                             this.goToArticle(i.get('_id'))
                         }}>
                             <div className="item-title">
@@ -56,36 +56,12 @@ class Articles extends React.Component {
                                  className="item-content markdown-body">
                             </div>
                         </div>
-                        {/*<Card title={} style={{marginBottom: 20, height: 228}} onClick={() => {*/
-                        }
-                        {/*this.goToArticle(i.get('_id'))*/
-                        }
-                        {/*}}>*/
-                        }
-                        {/*<div className="custom-card">*/
-                        }
-                        {/*<div className="card-mask"></div>*/
-                        }
-                        {/*<pre dangerouslySetInnerHTML={{__html: i.get('content')}}*/
-                        }
-                        {/*className="card-content markdown-body"></pre>*/
-                        }
-                        {/*<Icon type="delete" onClick={(e) => {*/
-                        }
-                        {/*this.deleteOneArticle(e, i.get('_id'))*/
-                        }
-                        {/*}}/>*/
-                        }
-                        {/*<span>{new Date(i.get('createDate')).toLocaleString()}</span>*/
-                        }
-                        {/*</div>*/
-                        }
-                        {/*</Card>*/
-                        }
                     }) : null
                 }
 
-                <Pagination defaultCurrent={1} total={50} onChange={this.changePageNum}/>
+                <div className="plu-Pagination">
+                    <Pagination defaultCurrent={1} total={50} onChange={this.changePageNum}/>
+                </div>
             </div>
         )
     }
