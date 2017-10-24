@@ -24,7 +24,7 @@ export function createOneArticle(data) {
 }
 
 export function getAllArticles(page) {
-    return get(`${server}/home/articles?where={"currentPage":"${page}"}`, GET_ALL_ARTICLES);
+    return get(`${server}/home/articles/${page}`, GET_ALL_ARTICLES);
 }
 
 export function getOneArticle(id) {

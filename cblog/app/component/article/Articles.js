@@ -39,38 +39,64 @@ class Articles extends React.Component {
         const {articles} = this.props;
 
         return (
-            <div>
-                <Row gutter={16}>
-                    {
-                        articles && articles.size ? articles.map(i => {
-                            return <Col xs={24} md={12} xl={8} key={i.get('_id')}>
-                                <Card title={i.get('title')} style={{marginBottom: 20, height: 228}} onClick={() => {
-                                    this.goToArticle(i.get('_id'))
-                                }}>
-                                    <div className="custom-card">
-                                        <div className="card-mask"></div>
-                                        <pre dangerouslySetInnerHTML={{__html: i.get('content')}}
-                                             className="card-content markdown-body"></pre>
-                                        <Icon type="delete" onClick={(e) => {
-                                            this.deleteOneArticle(e, i.get('_id'))
-                                        }}/>
-                                        <span>{new Date(i.get('createDate')).toLocaleString()}</span>
-                                    </div>
-                                </Card>
-                            </Col>
-                        }) : null
-                    }
-                </Row>
+            <div className="articles-content">
+
+                {
+                    articles && articles.size ? articles.map(i => {
+                        return <div key={i.get('_id')} className="article-item" onClick={() => {
+                            this.goToArticle(i.get('_id'))
+                        }}>
+                            <div className="item-title">
+                                {i.get('title')}
+                            </div>
+                            <div className="item-detail">
+                                Create by easterCat <span></span> at {new Date(i.get('createDate')).toLocaleString()}
+                            </div>
+                            <div dangerouslySetInnerHTML={{__html: i.get('content')}}
+                                 className="item-content markdown-body">
+                            </div>
+                        </div>
+                        {/*<Card title={} style={{marginBottom: 20, height: 228}} onClick={() => {*/
+                        }
+                        {/*this.goToArticle(i.get('_id'))*/
+                        }
+                        {/*}}>*/
+                        }
+                        {/*<div className="custom-card">*/
+                        }
+                        {/*<div className="card-mask"></div>*/
+                        }
+                        {/*<pre dangerouslySetInnerHTML={{__html: i.get('content')}}*/
+                        }
+                        {/*className="card-content markdown-body"></pre>*/
+                        }
+                        {/*<Icon type="delete" onClick={(e) => {*/
+                        }
+                        {/*this.deleteOneArticle(e, i.get('_id'))*/
+                        }
+                        {/*}}/>*/
+                        }
+                        {/*<span>{new Date(i.get('createDate')).toLocaleString()}</span>*/
+                        }
+                        {/*</div>*/
+                        }
+                        {/*</Card>*/
+                        }
+                    }) : null
+                }
+
                 <Pagination defaultCurrent={1} total={50} onChange={this.changePageNum}/>
             </div>
         )
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         articles: state.get('article').get('articles')
     }
 };
+
 const mapActionCreators = {
     getAllArticles,
     deleteArticleById
