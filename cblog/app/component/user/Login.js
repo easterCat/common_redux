@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import {Form, Icon, Input, Button, Checkbox, Upload, message} from 'antd';
 const FormItem = Form.Item;
 import {server} from '../../../app.config';
-import {register} from './user.actions';
+import {login} from './user.actions';
 
 class Logining extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class Logining extends React.Component {
 
         this.handleSubmit = (e) => {
             const {
-                history
+                history,
             } = this.props;
 
             e.preventDefault();
@@ -28,13 +28,17 @@ class Logining extends React.Component {
 
                     this.props.login(user)
                         .then(() => {
-                            message.success('注册成功');
-                            if (values.userName === 'admin' && values.password === '123456') {
-                                history.replace('/login')
+                            if (this.props.user) {
+                                message.success('登录成功');
+                                setTimeout(() => {
+                                    history.replace('/home')
+                                }, 1000);
+                            } else {
+                                message.error(`登录失败`);
                             }
                         })
                         .catch((error) => {
-                            message.error(`注册失败${error}`);
+                            message.error(`登录失败${error}`);
                         })
 
                 }
@@ -81,7 +85,6 @@ class Logining extends React.Component {
                         <Link to="/register">
                             <a href="">注册</a>
                         </Link>
-
                     </FormItem>
                 </Form>
             </div>
@@ -92,10 +95,12 @@ class Logining extends React.Component {
 const Login = Form.create()(Logining);
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        user: state.get('user').get('user')
+    }
 };
 
 const mapActionCreators = {
-    register
+    login
 };
 export default connect(mapStateToProps, mapActionCreators)(Login);

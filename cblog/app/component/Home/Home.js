@@ -2,6 +2,7 @@
  * Created by easterCat on 2017/10/9.
  */
 import React from 'react';
+import {connect} from 'react-redux';
 import {matchPath} from 'react-router-dom';
 import Header from '../layout/Header';
 import Content from '../layout/Content';
@@ -36,6 +37,13 @@ class Home extends React.Component {
         }
     }
 
+    componentDidMount() {
+        const {history, user} = this.props;
+        if (!user) {
+            history.replace('/login');
+        }
+    }
+
     render() {
         return (
             <Layout className="layout-app">
@@ -64,4 +72,11 @@ class Home extends React.Component {
         )
     }
 }
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        user: state.get('user').get('user')
+    }
+};
+
+const mapActionCreators = {};
+export default connect(mapStateToProps, mapActionCreators)(Home);

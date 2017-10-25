@@ -2,13 +2,22 @@
  * Created by easterCat on 2017/10/10.
  */
 import React from 'react';
+import {connect} from 'react-redux';
 import avatar_img from '../../images/avatar.jpg';
 import {Icon, Menu, Dropdown, Avatar} from 'antd';
 import {Link} from 'react-router-dom';
+import {server} from '../../../app.config';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        const {history, user} = this.props;
+        if (!user) {
+            history.replace('/login');
+        }
     }
 
     render() {
@@ -20,34 +29,38 @@ class Header extends React.Component {
         const menu = (
             <Menu>
                 <Menu.Item>
-                    <Link to="/login">
-                        登录
-                    </Link>
+                    <Link to="/login">登录</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer">注册</a>
+                    <Link to="/register">注册</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <Link to="/login">
-                        退出
-                    </Link>
+                    <Link to="/login">退出</Link>
                 </Menu.Item>
             </Menu>
         );
 
         return (
             <div className="layout-header">
-                <Icon
-                    className="trigger"
-                    type={collapsed ? 'menu-unfold' : 'menu-fold'}
-                    onClick={toggle}
+                <Icon className="trigger"
+                      type={collapsed ? 'menu-unfold' : 'menu-fold'}
+                      onClick={toggle}
                 />
                 <Dropdown overlay={menu}>
                     <Avatar className="avatar"
-                            src={avatar_img}/>
+                            src={this.props.user.get('avatar') ? `${server}/file/picture/${this.props.user.get('avatar')}` : avatar_img}/>
                 </Dropdown>
             </div>
         )
     }
 }
-export default Header;
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.get('user').get('user')
+    }
+};
+
+const mapActionCreators = {};
+
+export default connect(mapStateToProps, mapActionCreators)(Header);
