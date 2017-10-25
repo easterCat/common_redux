@@ -2,8 +2,12 @@
  * Created by easterCat on 2017/10/13.
  */
 import React from 'react';
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {Form, Icon, Input, Button, Checkbox, Upload, message} from 'antd';
 const FormItem = Form.Item;
+import {server} from '../../../app.config';
+import {register} from './user.actions';
 
 class Logining extends React.Component {
     constructor(props) {
@@ -17,13 +21,27 @@ class Logining extends React.Component {
             e.preventDefault();
             this.props.form.validateFields((err, values) => {
                 if (!err) {
-                    if (values.userName === 'admin' && values.password === '123456') {
-                        history.replace('/home')
-                    }
-                    console.log('Received values of form: ', values);
+
+                    let user = {};
+                    user.password = values.password;
+                    user.username = values.username;
+
+                    this.props.login(user)
+                        .then(() => {
+                            message.success('注册成功');
+                            if (values.userName === 'admin' && values.password === '123456') {
+                                history.replace('/login')
+                            }
+                        })
+                        .catch((error) => {
+                            message.error(`注册失败${error}`);
+                        })
+
                 }
             });
-        }
+        };
+
+
     }
 
     render() {
@@ -35,32 +53,35 @@ class Logining extends React.Component {
             <div className="login">
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <FormItem>
-                        {getFieldDecorator('userName', {
-                            rules: [{required: true, message: 'Please input your username!'}],
+                        {getFieldDecorator('username', {
+                            rules: [{required: true, message: '请输入您的用户名!'}],
                         })(
-                            <Input prefix={<Icon type="user" style={{fontSize: 13}}/>} placeholder="Username"/>
+                            <Input prefix={<Icon type="user" style={{fontSize: 13}}/>} placeholder="请输入您的用户名"/>
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
-                            rules: [{required: true, message: 'Please input your Password!'}],
+                            rules: [{required: true, message: '请输入您的密码!'}],
                         })(
                             <Input prefix={<Icon type="lock" style={{fontSize: 13}}/>} type="password"
-                                   placeholder="Password"/>
+                                   placeholder="请输入您的密码"/>
                         )}
                     </FormItem>
                     <FormItem>
-                        {getFieldDecorator('remember', {
-                            valuePropName: 'checked',
-                            initialValue: true,
-                        })(
-                            <Checkbox>Remember me</Checkbox>
-                        )}
-                        <a className="login-form-forgot" href="">Forgot password</a>
+                        {/*{getFieldDecorator('remember', {*/}
+                        {/*valuePropName: 'checked',*/}
+                        {/*initialValue: true,*/}
+                        {/*})(*/}
+                        {/*<Checkbox>记住我</Checkbox>*/}
+                        {/*)}*/}
+                        <a className="login-form-forgot" href="">忘记密码</a>
                         <Button type="primary" htmlType="submit" className="login-form-button">
-                            Log in
+                            登录
                         </Button>
-                        Or <a href="">register now!</a>
+                        <Link to="/register">
+                            <a href="">注册</a>
+                        </Link>
+
                     </FormItem>
                 </Form>
             </div>
@@ -70,4 +91,11 @@ class Logining extends React.Component {
 
 const Login = Form.create()(Logining);
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {}
+};
+
+const mapActionCreators = {
+    register
+};
+export default connect(mapStateToProps, mapActionCreators)(Login);

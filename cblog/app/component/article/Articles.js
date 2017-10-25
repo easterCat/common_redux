@@ -40,7 +40,6 @@ class Articles extends React.Component {
 
     render() {
         const {articles, count} = this.props;
-
         return (
             <div className="articles-content">
                 {
@@ -51,7 +50,8 @@ class Articles extends React.Component {
                                 {i.get('title')}
                             </div>
                             <div className="item-detail">
-                                Create by easterCat <span></span> at {new Date(i.get('createDate')).toLocaleString()}
+                                Create by easterCat <span></span>
+                                at {new Date(i.get('createDate')).toLocaleString()}
                             </div>
                             <div dangerouslySetInnerHTML={{__html: i.get('content')}}
                                  className="item-content markdown-body">
@@ -74,7 +74,7 @@ class Articles extends React.Component {
 const mapStateToProps = (state) => {
     return {
         articles: state.get('article').get('articles'),
-        count: state.get('article').get('count'),
+        count: state.get('article').get('articles_count'),
     }
 };
 

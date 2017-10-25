@@ -24,7 +24,6 @@ class createArticle extends React.Component {
                 .then(() => {
                     message.info('创建一篇新文章成功');
                 });
-
         }
     }
 

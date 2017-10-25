@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Home from './Home/Home';
+import Register from './user/Register';
 import Login from './user/Login';
 import {Route} from 'react-router-dom'
 import '../style/app.scss';
@@ -30,6 +31,7 @@ class App extends React.Component {
             <div className="app">
                 <Route path="/home" component={Home}/>
                 <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
             </div>
         )
     }
