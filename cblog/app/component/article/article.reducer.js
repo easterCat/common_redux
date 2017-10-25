@@ -20,6 +20,7 @@ const initState = fromJS({
         key: 1,
     }],
     articles: [],
+    articles_count: null,
     article: {}
 });
 
@@ -28,18 +29,16 @@ const handlers = {
         return article.set('data', article.get('data').push(fromJS(action.payload)));
     },
     [GET_ALL_ARTICLES]: (article, action) => {
-        return article.set('articles', fromJS(action.payload));
+        article = article.set('articles_count', fromJS(action.payload.count));
+        return article.set('articles', fromJS(action.payload.articles));
     },
     [GET_ONE_ARTICLE]: (article, action) => {
         return article.set('article', fromJS(action.payload));
     },
     [DELETE_ONE_ARTICLE]: (article, action) => {
-        console.log();
         let as = article.get('articles');
         let a = action.payload;
-        let index = as.findIndex(i => {
-            return i.get('_id') === a._id;
-        });
+        let index = as.findIndex(i => i.get('_id') === a._id);
         if (index === -1) return article;
         return article.set('articles', as.delete(index));
     }

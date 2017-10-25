@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card, Col, Row, Pagination, Icon} from 'antd';
+import {Card, Col, Row, Pagination, Icon, message} from 'antd';
 import {getAllArticles, deleteArticleById} from './article.actions';
 
 class Articles extends React.Component {
@@ -14,19 +14,22 @@ class Articles extends React.Component {
 
         this.goToArticle = (id) => {
             const {history} = this.props;
-            console.log(id);
-            history.push(`/home/article/${id}`);
+            if (id) {
+                history.push(`/home/article/${id}`);
+            } else {
+                message.error('获取文章id失败');
+            }
         };
 
         //页码改变后的回调函数
         this.changePageNum = (page, pagesize) => {
-            console.log(page);
             this.props.getAllArticles(page);
         };
 
         this.deleteOneArticle = (e, id) => {
             e.stopPropagation();
-            this.props.deleteArticleById(id);
+            this.props.deleteArticleById(id)
+                .then(() => message.success('删除文章成功'));
         };
     }
 
@@ -36,16 +39,14 @@ class Articles extends React.Component {
     }
 
     render() {
-        const {articles} = this.props;
+        const {articles, count} = this.props;
 
         return (
             <div className="articles-content">
-
                 {
                     articles && articles.size ? articles.map(i => {
-                        return <div key={i.get('_id')} className="articles-item" onClick={() => {
-                            this.goToArticle(i.get('_id'))
-                        }}>
+                        return <div key={i.get('_id')} className="articles-item"
+                                    onClick={() => this.goToArticle(i.get('_id'))}>
                             <div className="item-title">
                                 {i.get('title')}
                             </div>
@@ -56,15 +57,14 @@ class Articles extends React.Component {
                                  className="item-content markdown-body">
                             </div>
                             <div className="item-operate">
-                                <Icon className="delete-btn" type="delete" onClick={(e) => {
-                                    this.deleteOneArticle(e, i.get('_id'))
-                                }}/>
+                                <Icon className="delete-btn" type="delete"
+                                      onClick={(e) => this.deleteOneArticle(e, i.get('_id'))}/>
                             </div>
                         </div>
                     }) : null
                 }
                 <div className="plu-Pagination">
-                    <Pagination defaultCurrent={1} total={50} onChange={this.changePageNum}/>
+                    <Pagination defaultCurrent={1} total={count} onChange={this.changePageNum}/>
                 </div>
             </div>
         )
@@ -73,7 +73,8 @@ class Articles extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        articles: state.get('article').get('articles')
+        articles: state.get('article').get('articles'),
+        count: state.get('article').get('count'),
     }
 };
 
