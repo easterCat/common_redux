@@ -17,10 +17,10 @@ class Sidebar extends React.Component {
                       mode="inline"
                       defaultSelectedKeys={[res]}
                 >
-                    <Menu.Item key="content01">
-                        <NavLink to="/home/content01">
-                            <Icon type="user"/>
-                            <span>nav 1</span>
+                    <Menu.Item key="articles">
+                        <NavLink to="/home/articles">
+                            <Icon type="upload"/>
+                            <span>全部文章</span>
                         </NavLink>
                     </Menu.Item>
                     <Menu.Item key="createArticle">
@@ -29,10 +29,10 @@ class Sidebar extends React.Component {
                             <span>新建文章</span>
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key="articles">
-                        <NavLink to="/home/articles">
-                            <Icon type="upload"/>
-                            <span>全部文章</span>
+                    <Menu.Item key="content01">
+                        <NavLink to="/home/content01">
+                            <Icon type="user"/>
+                            <span>nav 1</span>
                         </NavLink>
                     </Menu.Item>
                 </Menu>

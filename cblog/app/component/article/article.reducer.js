@@ -8,7 +8,10 @@ import {
     ADD_ONE_USER,
     GET_ALL_ARTICLES,
     GET_ONE_ARTICLE,
-    DELETE_ONE_ARTICLE
+    DELETE_ONE_ARTICLE,
+    GET_COMMENTS,
+    CREATE_ONE_COMMENT,
+    DELETE_COMMNENT_BY_ID
 } from './article.actions';
 
 const initState = fromJS({
@@ -21,7 +24,8 @@ const initState = fromJS({
     }],
     articles: [],
     articles_count: null,
-    article: {}
+    article: {},
+    comments: {}
 });
 
 const handlers = {
@@ -41,6 +45,24 @@ const handlers = {
         let index = as.findIndex(i => i.get('_id') === a._id);
         if (index === -1) return article;
         return article.set('articles', as.delete(index));
+    },
+    [GET_COMMENTS]: (article, action) => {
+        console.log(action.payload);
+        return article.set('comments', fromJS(action.payload));
+    },
+    [CREATE_ONE_COMMENT]: (article, action) => {
+        console.log(action.payload);
+        let comments = article.get('comments');
+        return article.set('comments', comments.push(fromJS(action.payload)));
+    },
+    [DELETE_COMMNENT_BY_ID]: (article, action) => {
+        let comments = article.get('comments');
+        let com = fromJS(action.payload);
+        let index = comments.findIndex(i => {
+            return i.get('_id') === com.get('_id');
+        });
+        if (index === -1) return article;
+        return article.set('comments', comments.delete(index));
     }
 };
 

@@ -9,6 +9,9 @@ export const CREATE_ONE_ARTICLE = 'CREATE_ONE_ARTICLE';
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
 export const GET_ONE_ARTICLE = 'GET_ONE_ARTICLE';
 export const DELETE_ONE_ARTICLE = 'DELETE_ONE_ARTICLE';
+export const CREATE_ONE_COMMENT = 'CREATE_ONE_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const DELETE_COMMNENT_BY_ID = 'DELETE_COMMNENT_BY_ID';
 
 export function addOneUser(value) {
     return dispatch => {
@@ -35,3 +38,14 @@ export function deleteArticleById(id) {
     return remove(`${server}/home/article/${id}`, DELETE_ONE_ARTICLE)
 }
 
+export function addOneComment(data) {
+    return post(`${server}/comment`, data, CREATE_ONE_COMMENT);
+}
+
+export function getComments(id) {
+    return get(`${server}/comment/${id}`, GET_COMMENTS)
+}
+
+export function removeCommentById(id) {
+    return remove(`${server}/comment/${id}`, DELETE_COMMNENT_BY_ID)
+}

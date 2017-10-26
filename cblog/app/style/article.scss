@@ -18,7 +18,6 @@
 }
 
 .article-title {
-
     width: 100%;
     height: 40px;
     line-height: 40px;
@@ -28,4 +27,30 @@
     letter-spacing: 1px;
     color: #3d92c9;
 }
+
+.comment {
+    margin-top: 30px;
+
+    p {
+        padding: 10px 0;
+        font-size: 20px;
+        font-weight: bold;
+        color: #3d92c9;
+    }
+    .comment-textarea {
+        margin: 10px 0;
+    }
+}
+
+.show-comments {
+    padding: 10px;
+    margin-top: 10px;
+    .comments-item {
+        height: 80px;
+        line-height: 20px;
+        color: rgba(44, 44, 44, .7);
+        overflow: auto;
+    }
+}
+
 

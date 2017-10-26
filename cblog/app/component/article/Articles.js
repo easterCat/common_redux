@@ -50,8 +50,10 @@ class Articles extends React.Component {
                                 {i.get('title')}
                             </div>
                             <div className="item-detail">
-                                Create by easterCat <span></span>
-                                at {new Date(i.get('createDate')).toLocaleString()}
+                                Create by easterCat at {new Date(i.get('createDate')).toLocaleString()}
+                                {
+                                    i.get('pv') ? <span style={{marginLeft: 30}}>访问次数:{i.get('pv')}</span> : null
+                                }
                             </div>
                             <div dangerouslySetInnerHTML={{__html: i.get('content')}}
                                  className="item-content markdown-body">
