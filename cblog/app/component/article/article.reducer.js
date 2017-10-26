@@ -47,11 +47,9 @@ const handlers = {
         return article.set('articles', as.delete(index));
     },
     [GET_COMMENTS]: (article, action) => {
-        console.log(action.payload);
         return article.set('comments', fromJS(action.payload));
     },
     [CREATE_ONE_COMMENT]: (article, action) => {
-        console.log(action.payload);
         let comments = article.get('comments');
         return article.set('comments', comments.push(fromJS(action.payload)));
     },
