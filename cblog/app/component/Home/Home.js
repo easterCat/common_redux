@@ -37,12 +37,6 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const {history, user} = this.props;
-        if (!user) {
-            history.replace('/login');
-        }
-    }
 
     render() {
         return (

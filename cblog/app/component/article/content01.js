@@ -35,6 +35,13 @@ class Content01 extends React.Component {
         }
     }
 
+    componentDidMount() {
+        const {history, user} = this.props;
+        if (!user) {
+            history.replace('/login');
+        }
+    }
+
     render() {
         const columns = [{
             title: '姓名',
@@ -77,6 +84,7 @@ class Content01 extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data: state.get('article').get('data'),
+        user: state.get('user').get('user')
     }
 };
 

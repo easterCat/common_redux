@@ -21,7 +21,6 @@ class Logining extends React.Component {
             e.preventDefault();
             this.props.form.validateFields((err, values) => {
                 if (!err) {
-
                     let user = {};
                     user.password = values.password;
                     user.username = values.username;
@@ -40,12 +39,9 @@ class Logining extends React.Component {
                         .catch((error) => {
                             message.error(`登录失败${error}`);
                         })
-
                 }
             });
         };
-
-
     }
 
     render() {

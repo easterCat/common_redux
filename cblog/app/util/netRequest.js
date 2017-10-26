@@ -10,6 +10,9 @@ export function get(url, type) {
         return $.ajax({
             type: 'GET',
             url: url,
+            xhrFields: {
+                withCredentials: true
+            },
             success: function (msg) {
                 dispatch({
                     type: type,
@@ -26,6 +29,9 @@ export function post(url, data, type) {
             type: 'POST',
             url: url,
             data: data,
+            xhrFields: {
+                withCredentials: true
+            },
             success: function (msg) {
                 dispatch({
                     type: type,

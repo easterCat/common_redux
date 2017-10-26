@@ -6,7 +6,8 @@ import {fromJS} from 'immutable';
 
 import {
     REGISTER,
-    LOGIN
+    LOGIN,
+    LOGGOD
 } from './user.actions';
 
 const initState = fromJS({
@@ -19,6 +20,9 @@ const handlers = {
     },
     [LOGIN]: (user, action) => {
         console.log(action.payload);
+        return user.set('user', fromJS(action.payload));
+    },
+    [LOGGOD]: (user, action) => {
         return user.set('user', fromJS(action.payload));
     }
 };

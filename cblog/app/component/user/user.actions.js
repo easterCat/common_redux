@@ -6,6 +6,7 @@ import {get, post, remove, update} from '../../util/netRequest';
 
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
+export const LOGGOD = 'LOGGOD';
 
 
 export function register(data) {
@@ -13,4 +14,8 @@ export function register(data) {
 }
 export function login(data) {
     return post(`${server}/user/login`, data, LOGIN);
+}
+
+export function loggod() {
+    return get(`${server}/user/loggod`, LOGGOD);
 }
