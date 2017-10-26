@@ -46,10 +46,30 @@
     padding: 10px;
     margin-top: 10px;
     .comments-item {
-        height: 80px;
+        display: flex;
+        flex: 0 0 100%;
+        min-height: 100px;
         line-height: 20px;
         color: rgba(44, 44, 44, .7);
         overflow: auto;
+        margin-bottom: 10px;
+    }
+
+    .avatar {
+        flex: 0 0 200px;
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .content {
+        flex: 1;
+    }
+    .del-btn {
+        flex: 0 0 30px;
+        align-self: flex-end;
     }
 }
 

@@ -4,7 +4,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Input, Button, message} from 'antd';
-import {getOneArticle, addOneComment, getComments, removeCommentById} from './article.actions';
+import {
+    getOneArticle,
+    addOneComment,
+    getComments,
+    removeCommentById
+} from './article.actions';
 class Article extends React.Component {
 
     constructor(props) {
@@ -27,7 +32,13 @@ class Article extends React.Component {
         };
 
         this.deleteComment = id => {
-            this.props.removeCommentById(id);
+            this.props.removeCommentById(id)
+                .then(() => {
+                    message.success('删除一条留言成功');
+                })
+                .catch(error => {
+                    message.error(error);
+                })
         }
     }
 
@@ -70,11 +81,18 @@ class Article extends React.Component {
                     <ul>
                         {
                             this.props.comments ? this.props.comments.map(i => {
-                                return <li key={i.get('_id')} className="comments-item">{i.get('content')} <Button
-                                    type="primary" onClick={() => {
-                                    this.deleteComment(i.get('_id'))
-                                }
-                                }>删除</Button></li>
+                                return <li key={i.get('_id')} className="comments-item">
+                                    <div className="avatar">
+                                        <img src="" alt=""/>
+                                    </div>
+                                    <div className="right">
+                                        <div dangerouslySetInnerHTML={{__html: i.get('content')}}
+                                             className="markdown-body content"></div>
+                                        <Button className="del-btn" type="primary" onClick={() => {
+                                            this.deleteComment(i.get('_id'))
+                                        }}>删除</Button>
+                                    </div>
+                                </li>
                             }) : '暂无留言'
                         }
                     </ul>
