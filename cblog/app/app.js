@@ -4,6 +4,7 @@
 import './index.html';
 import './style/app.scss';
 
+import "babel-polyfill";
 import React from 'react';
 import ReactDom from 'react-dom';
 import App from './component/App';

@@ -15,6 +15,7 @@ const cssPlugin = new ExtractTextPlugin({
     allChunks: true, // don't contain embedded styles
 });
 
+
 let sassLoader;
 let lessLoader;
 
@@ -71,31 +72,31 @@ module.exports = {
         filename: 'app.js',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loaders: 'babel-loader',
+                use: 'babel-loader',
             },
             {
                 test: /\.css$/,
-                loader: cssPlugin.extract(['css-loader'])
+                use: cssPlugin.extract(['css-loader']),
             },
             {
                 test: /\.scss$/,
-                loaders: sassLoader
+                use: sassLoader
             },
             {
                 test: /\.less$/,
-                loaders: lessLoader
+                use: lessLoader
             },
             {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
-                loaders: 'url-loader?name=images/[name].[ext]&limit=10000!image-webpack-loader' //10KB
+                use: 'url-loader?name=images/[name].[ext]&limit=10000!image-webpack-loader' //10KB
             },
             {
                 test: /index\.html/,
-                loaders: production ?
+                use: production ?
                     'file-loader?name=[name].html' :
                     'file-loader?name=index.html'
             }
