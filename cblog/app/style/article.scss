@@ -56,13 +56,14 @@
     }
 
     .avatar {
-        flex: 0 0 200px;
+        flex: 0 0 100px;
     }
 
     .right {
         flex: 1;
         display: flex;
         flex-direction: column;
+        padding: 5px 10px;
     }
     .content {
         flex: 1;

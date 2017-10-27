@@ -1,12 +1,73 @@
 /**
  * Created by easterCat on 2017/10/9.
  */
+const production = process.env.NODE_ENV === 'production';
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+
+
+const cssPlugin = new ExtractTextPlugin({
+    filename: 'app.css',
+    allChunks: true, // don't contain embedded styles
+});
+
+let sassLoader;
+let lessLoader;
+
+let plugins = [
+    cssPlugin,
+];
+
+//如果production为true的时候，是生产环境，执行压缩合并打包操作
+if (production) {
+    lessLoader = cssPlugin.extract(['css-loader', 'less-loader']);
+    sassLoader = cssPlugin.extract(['css-loader', 'sass-loader']);
+    plugins.push(
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        })
+    );
+    //加入js压缩的实例
+    plugins.push(new UglifyJsPlugin({
+        mangle: {
+            mangle: false
+        },
+        compress: {
+            sequences: true,
+            dead_code: true,
+            conditionals: true,
+            booleans: true,
+            unused: false,
+            if_return: true,
+            join_vars: true,
+            drop_console: false,
+            warnings: false
+        },
+    }));
+    plugins.push(new CleanWebpackPlugin(['dist', 'dist.zip', 'dist.rar']))
+} else {
+    lessLoader = 'style-loader!css-loader?sourceMap!less-loader?sourceMap=true&outputStyle=expanded&sourceMapContents=true';
+    sassLoader = 'style-loader!css-loader?sourceMap!sass-loader?sourceMap=true&outputStyle=expanded&sourceMapContents=true';
+}
 
 //__dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
 module.exports = {
-    entry: __dirname + "/app/app.js",
+    context: path.resolve(__dirname, 'app'),
+    resolve: {
+        modules: [
+            path.resolve(__dirname, 'node_modules')
+        ]
+    },
+    // devtool: production ? false : 'source-map',
+    entry: './app.js',
     output: {
-        path: __dirname + "/dist", //打包后的js文件存放的地方
+        path: path.resolve(__dirname, 'dist'), //打包后的js文件存放的地方
         filename: 'app.js',
     },
     module: {
@@ -18,15 +79,15 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                loader: cssPlugin.extract(['css-loader'])
             },
             {
                 test: /\.scss$/,
-                loader: 'style-loader!css-loader!sass-loader'
+                loaders: sassLoader
             },
             {
                 test: /\.less$/,
-                loader: 'style-loader!css-loader!less-loader'
+                loaders: lessLoader
             },
             {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
@@ -34,7 +95,9 @@ module.exports = {
             },
             {
                 test: /index\.html/,
-                loaders: 'file-loader?name=index.html'
+                loaders: production ?
+                    'file-loader?name=[name].html' :
+                    'file-loader?name=index.html'
             }
         ]
     },
@@ -45,4 +108,5 @@ module.exports = {
         inline: true,//源文件改变,会自动刷新页面
         port: 3000,//设置默认监听端口，如果省略，默认为"8080"
     },
+    plugins: plugins,
 };

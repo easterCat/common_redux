@@ -6,8 +6,6 @@ import Home from './Home/Home';
 import Register from './user/Register';
 import Login from './user/Login';
 import {Route} from 'react-router-dom'
-import '../style/app.scss';
-import 'antd/dist/antd.less';
 
 class App extends React.Component {
     constructor() {

@@ -2,6 +2,7 @@
  * Created by easterCat on 2017/10/9.
  */
 import './index.html';
+import './style/app.scss';
 
 import React from 'react';
 import ReactDom from 'react-dom';

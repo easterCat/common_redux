@@ -23,7 +23,7 @@ class Registering extends React.Component {
                 if (!err) {
 
                     let user = {};
-                    user.avatar = values.avatar[0].response._id;
+                    user.avatar = values.avatar[0].response ? values.avatar[0].response._id : null;
                     user.description = values.description;
                     user.password = values.password;
                     user.username = values.username;
