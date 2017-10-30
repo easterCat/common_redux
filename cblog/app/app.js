@@ -11,11 +11,12 @@ import App from './component/App';
 import {BrowserRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './store/store';
-import {loggod} from './component/user/user.actions';
+import {logged} from './component/user/user.actions';
 
 Promise.all([
-    store.dispatch(loggod())
+    store.dispatch(logged())
 ]).then(() => {
+    console.log('已进入应用');
     ReactDom.render(
         <Provider store={store}>
             <BrowserRouter>

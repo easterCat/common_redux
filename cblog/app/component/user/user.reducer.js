@@ -7,7 +7,7 @@ import {fromJS} from 'immutable';
 import {
     REGISTER,
     LOGIN,
-    LOGGOD
+    LOGGED
 } from './user.actions';
 
 const initState = fromJS({
@@ -23,7 +23,7 @@ const handlers = {
         console.log(action.payload);
         return user.set('user', fromJS(action.payload));
     },
-    [LOGGOD]: (user, action) => {
+    [LOGGED]: (user, action) => {
         user = user.set('logged', action.payload.logged);
         return user.set('user', fromJS(action.payload.user));
     }

@@ -7,10 +7,13 @@ import avatar_img from '../../images/avatar.jpg';
 import {Icon, Menu, Dropdown, Avatar} from 'antd';
 import {Link} from 'react-router-dom';
 import {server} from '../../../app.config';
+import {logout} from '../user/user.actions';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
+
+
     }
 
     componentDidMount() {
@@ -35,7 +38,7 @@ class Header extends React.Component {
                     <Link to="/register">注册</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <Link to="/login">退出</Link>
+                    <Link to="/login" onClick={this.props.logout}>退出</Link>
                 </Menu.Item>
             </Menu>
         );
@@ -61,6 +64,8 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapActionCreators = {};
+const mapActionCreators = {
+    logout
+};
 
 export default connect(mapStateToProps, mapActionCreators)(Header);
