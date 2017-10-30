@@ -25,8 +25,23 @@ let plugins = [
 
 //如果production为true的时候，是生产环境，执行压缩合并打包操作
 if (production) {
-    lessLoader = cssPlugin.extract(['css-loader', 'less-loader']);
-    sassLoader = cssPlugin.extract(['css-loader', 'sass-loader']);
+    console.log('当前环境为production环境');
+
+    lessLoader = cssPlugin.extract({
+        use: [{
+            loader: 'css-loader'
+        }, {
+            loader: 'less-loader'
+        }]
+    });
+    sassLoader = cssPlugin.extract({
+        use: [{
+            loader: 'css-loader'
+        }, {
+            loader: 'sass-loader'
+        }]
+    });
+
     plugins.push(
         new webpack.DefinePlugin({
             'process.env': {
@@ -52,9 +67,44 @@ if (production) {
         },
     }));
     plugins.push(new CleanWebpackPlugin(['dist', 'dist.zip', 'dist.rar']))
-} else {
-    lessLoader = 'style-loader!css-loader?sourceMap!less-loader?sourceMap=true&outputStyle=expanded&sourceMapContents=true';
-    sassLoader = 'style-loader!css-loader?sourceMap!sass-loader?sourceMap=true&outputStyle=expanded&sourceMapContents=true';
+}
+//如果production为false则是开发环境
+else {
+    console.log('当前环境为development环境');
+
+    lessLoader = [{
+        loader: 'style-loader'
+    }, {
+        loader: 'css-loader',
+        options: {
+            sourceMap: true
+        }
+    }, {
+        loader: 'less-loader',
+        options: {
+            sourceMap: true,
+            outputStyle: 'expanded',
+            sourceMapContents: true
+        }
+    }];
+
+    sassLoader = [{
+        loader: 'style-loader'
+    }, {
+        loader: 'css-loader',
+        options: {
+            sourceMap: true
+        }
+    }, {
+        loader: 'sass-loader',
+        options: {
+            sourceMap: true,
+            outputStyle: 'expanded',
+            sourceMapContents: true
+        }
+    }];
+    //启动模块热替换
+    plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 //__dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
@@ -65,7 +115,7 @@ module.exports = {
             path.resolve(__dirname, 'node_modules')
         ]
     },
-    // devtool: production ? false : 'source-map',
+    devtool: production ? false : 'source-map',
     entry: './app.js',
     output: {
         path: path.resolve(__dirname, 'dist'), //打包后的js文件存放的地方
@@ -76,11 +126,13 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: 'babel-loader',
+                use: [{
+                    loader: 'babel-loader'
+                }],
             },
             {
                 test: /\.css$/,
-                use: cssPlugin.extract(['css-loader']),
+                use: cssPlugin.extract(['style-loader', 'css-loader']),
             },
             {
                 test: /\.scss$/,
@@ -92,13 +144,29 @@ module.exports = {
             },
             {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
-                use: 'url-loader?name=images/[name].[ext]&limit=10000!image-webpack-loader' //10KB
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10000,
+                        name: 'images/[name].[ext]'
+                    }
+                }, {
+                    loader: 'image-webpack-loader'
+                }]
             },
             {
                 test: /index\.html/,
-                use: production ?
-                    'file-loader?name=[name].html' :
-                    'file-loader?name=index.html'
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name (file) {
+                            if (production) {
+                                return '[name].[ext]'
+                            }
+                            return 'index.[ext]'
+                        }
+                    }
+                }]
             }
         ]
     },
@@ -106,8 +174,9 @@ module.exports = {
     devServer: {
         // contentBase: './dist',//为一个目录下的文件提供本地服务器，在这里设置其所在目录
         historyApiFallback: true,//跳转将指向index.html
-        inline: true,//源文件改变,会自动刷新页面
-        port: 3000,//设置默认监听端口，如果省略，默认为"8080"
+        inline: true,//开启自动刷新页面
+        port: 3000,//设置监听端口3000
+        hot: true,//开启热提花
     },
     plugins: plugins,
 };
