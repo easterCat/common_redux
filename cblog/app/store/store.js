@@ -12,12 +12,17 @@ import reducers from './reducers';
 let middlewares = [];
 middlewares.push(thunk);
 middlewares.push(logger);
-middlewares.push(freeze);
+if (process.env.NODE_ENV !== 'production') {
+    middlewares.push(freeze);
+}
 
 //添加中间件
 let middleware = applyMiddleware(...middlewares);
 //添加redux dev tools
-middleware = compose(middleware, window.devToolsExtension());
+if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
+    middleware = compose(middleware, window.devToolsExtension());
+}
+
 
 const reducer = combineReducers(reducers);
 
