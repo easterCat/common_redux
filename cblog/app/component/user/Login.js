@@ -44,6 +44,13 @@ class Logining extends React.Component {
         };
     }
 
+    componentDidMount() {
+        // const {user, history} = this.props;
+        // if (user) {
+        //     history.replace('/home');
+        // }
+    }
+
     render() {
         const {
             getFieldDecorator

@@ -17,6 +17,7 @@ class App extends React.Component {
             location,
             history
         } = this.props;
+
         if (location.pathname === '/home' || location.pathname === '/') {
             history.replace('/home')
         } else if (location.pathname === '/login') {
