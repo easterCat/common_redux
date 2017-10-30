@@ -11,7 +11,8 @@ import {
 } from './user.actions';
 
 const initState = fromJS({
-    user: null
+    user: null,
+    logged: null
 });
 
 const handlers = {
@@ -23,7 +24,8 @@ const handlers = {
         return user.set('user', fromJS(action.payload));
     },
     [LOGGOD]: (user, action) => {
-        return user.set('user', fromJS(action.payload));
+        user = user.set('logged', action.payload.logged);
+        return user.set('user', fromJS(action.payload.user));
     }
 };
 

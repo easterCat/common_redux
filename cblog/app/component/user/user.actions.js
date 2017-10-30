@@ -17,5 +17,5 @@ export function login(data) {
 }
 
 export function loggod() {
-    return get(`${server}/user/loggod`, LOGGOD);
+    return get(`${server}/user/logged`, LOGGOD);
 }

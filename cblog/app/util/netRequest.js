@@ -18,6 +18,9 @@ export function get(url, type) {
                     type: type,
                     payload: msg
                 });
+            },
+            error: function (err) {
+                console.log(err);
             }
         })
     }
@@ -37,6 +40,9 @@ export function post(url, data, type) {
                     type: type,
                     payload: msg
                 });
+            },
+            error: function (err) {
+                console.log(err);
             }
         })
     }
@@ -52,6 +58,9 @@ export function remove(url, type) {
                     type: type,
                     payload: msg
                 });
+            },
+            error: function (err) {
+                console.log(err);
             }
         })
     }
@@ -68,6 +77,9 @@ export function update(url, data, type) {
                     type: type,
                     payload: msg
                 });
+            },
+            error: function (err) {
+                console.log(err);
             }
         })
     }
