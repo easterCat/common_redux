@@ -7,6 +7,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 
@@ -66,6 +67,7 @@ if (production) {
             warnings: false
         },
     }));
+
     plugins.push(new CleanWebpackPlugin(['dist', 'dist.zip', 'dist.rar']))
 }
 //如果production为false则是开发环境
