@@ -11,8 +11,9 @@ import reducers from './reducers';
 
 let middlewares = [];
 middlewares.push(thunk);
-middlewares.push(logger);
+
 if (process.env.NODE_ENV !== 'production') {
+    middlewares.push(logger);
     middlewares.push(freeze);
 }
 
