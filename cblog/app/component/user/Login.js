@@ -99,7 +99,7 @@ const Login = Form.create()(Logining);
 
 const mapStateToProps = (state) => {
     return {
-        user: state.get('user').get('user')
+        user: state.get('session').get('user')
     }
 };
 

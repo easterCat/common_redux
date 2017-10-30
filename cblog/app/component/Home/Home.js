@@ -68,7 +68,7 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.get('user').get('user')
+        user: state.get('session').get('user')
     }
 };
 

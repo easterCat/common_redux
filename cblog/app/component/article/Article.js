@@ -106,7 +106,7 @@ class Article extends React.Component {
 const mapStateToProps = (state) => {
     return {
         article: state.get('article').get('article'),
-        user: state.get('user').get('user'),
+        user: state.get('session').get('user'),
         comments: state.get('article').get('comments')
     }
 };

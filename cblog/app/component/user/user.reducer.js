@@ -16,16 +16,16 @@ const initState = fromJS({
 });
 
 const handlers = {
-    [REGISTER]: (user, action) => {
-        return user;
+    [REGISTER]: (session, action) => {
+        return session;
     },
-    [LOGIN]: (user, action) => {
+    [LOGIN]: (session, action) => {
         console.log(action.payload);
-        return user.set('user', fromJS(action.payload));
+        return session.set('user', fromJS(action.payload));
     },
-    [LOGGED]: (user, action) => {
-        user = user.set('logged', action.payload.logged);
-        return user.set('user', fromJS(action.payload.user));
+    [LOGGED]: (session, action) => {
+        session = session.set('logged', action.payload.logged);
+        return session.set('user', fromJS(action.payload.user));
     }
 };
 

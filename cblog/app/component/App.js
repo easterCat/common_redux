@@ -2,6 +2,7 @@
  * Created by easterCat on 2017/10/13.
  */
 import React from 'react';
+import {connect} from 'react-redux';
 import Home from './Home/Home';
 import Register from './user/Register';
 import Login from './user/Login';
@@ -15,14 +16,20 @@ class App extends React.Component {
     componentDidMount() {
         const {
             location,
-            history
+            history,
+            user
         } = this.props;
 
-        if (location.pathname === '/home' || location.pathname === '/') {
-            history.replace('/home')
-        } else if (location.pathname === '/login') {
-            history.replace('/login')
+        if (user) {
+            if (location.pathname === '/home' || location.pathname === '/') {
+                history.replace('/home')
+            }
+        } else {
+            if (location.pathname !== '/register') {
+                history.replace('/login')
+            }
         }
+
     }
 
     render() {
@@ -36,4 +43,11 @@ class App extends React.Component {
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        user: state.get('session').get('user'),
+
+    }
+}
+
+export default connect(mapStateToProps)(App)

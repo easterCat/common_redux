@@ -51,7 +51,7 @@ class Header extends React.Component {
                 />
                 <Dropdown overlay={menu}>
                     <Avatar className="avatar"
-                            src={this.props.user.get('avatar') ? `${server}/file/picture/${this.props.user.get('avatar')}` : avatar_img}/>
+                            src={this.props.user && this.props.user.get('avatar') ? `${server}/file/picture/${this.props.user.get('avatar')}` : avatar_img}/>
                 </Dropdown>
             </div>
         )
@@ -60,7 +60,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.get('user').get('user')
+        user: state.get('session').get('user')
     }
 };
 
