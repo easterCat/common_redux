@@ -29,10 +29,10 @@ class Sidebar extends React.Component {
                             <span>新建文章</span>
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key="content01">
-                        <NavLink to="/home/content01">
+                    <Menu.Item key="audio">
+                        <NavLink to="/home/audio">
                             <Icon type="user"/>
-                            <span>nav 1</span>
+                            <span>音频</span>
                         </NavLink>
                     </Menu.Item>
                 </Menu>
