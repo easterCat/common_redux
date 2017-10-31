@@ -6,6 +6,7 @@ import {fromJS} from 'immutable';
 
 import {
     ADD_ONE_USER,
+    GET_ALL_AUTHORS,
     GET_ALL_ARTICLES,
     GET_ONE_ARTICLE,
     DELETE_ONE_ARTICLE,
@@ -25,12 +26,16 @@ const initState = fromJS({
     articles: [],
     articles_count: null,
     article: {},
-    comments: {}
+    comments: {},
+    authors: {},
 });
 
 const handlers = {
     [ADD_ONE_USER]: (article, action) => {
         return article.set('data', article.get('data').push(fromJS(action.payload)));
+    },
+    [GET_ALL_AUTHORS]: (article, action) => {
+        return article.set('authors', fromJS(action.payload));
     },
     [GET_ALL_ARTICLES]: (article, action) => {
         article = article.set('articles_count', fromJS(action.payload.count));

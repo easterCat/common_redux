@@ -8,8 +8,12 @@ import {
     getOneArticle,
     addOneComment,
     getComments,
-    removeCommentById
+    removeCommentById,
+    getAllAuthors
 } from './article.actions';
+import no_pic from '../../images/no_pic.jpg';
+import {server} from '../../../app.config';
+
 class Article extends React.Component {
 
     constructor(props) {
@@ -39,21 +43,37 @@ class Article extends React.Component {
                 .catch(error => {
                     message.error(error);
                 })
+        };
+
+        this.matchCommentUser = (id) => {
+            if (this.props.authors && this.props.authors.size) {
+                let author = this.props.authors.filter(i => {
+                    return i.get('_id') === id;
+                });
+                console.log(author.toJS());
+                if (author && author.size) return author;
+            }
         }
     }
 
     componentWillMount() {
-        let id = this.props.match.params.id;
-        this.props.getOneArticle(id)
+        const {
+            match,
+            getOneArticle,
+            getAllAuthors
+        } = this.props;
+        let id = match.params.id;
+        return Promise.all([
+            getOneArticle(id),
+            getAllAuthors()
+        ])
             .then(() => {
                 let articleid = this.props.article.get('_id');
+                //通过articleid查找所有的留言
                 if (articleid) {
                     this.props.getComments(articleid);
                 }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+            });
     }
 
     render() {
@@ -83,7 +103,13 @@ class Article extends React.Component {
                             this.props.comments ? this.props.comments.map(i => {
                                 return <li key={i.get('_id')} className="comments-item">
                                     <div className="avatar">
-                                        <img src="" alt=""/>
+
+                                           <img
+                                               src={`${server}/file/picture/${this.matchCommentUser(i.get('author')).getIn([0, 'avatar'])}`}
+                                               alt=""/>
+
+                                        <p className="user-name">{`${this.matchCommentUser(i.get('author')).getIn([0, 'username'])}`}</p>
+                                        <p className="create-time">{new Date(i.get('createDate')).toLocaleString().split(' ')[0]}</p>
                                     </div>
                                     <div className="right">
                                         <div dangerouslySetInnerHTML={{__html: i.get('content')}}
@@ -107,13 +133,15 @@ const mapStateToProps = (state) => {
     return {
         article: state.get('article').get('article'),
         user: state.get('session').get('user'),
-        comments: state.get('article').get('comments')
+        comments: state.get('article').get('comments'),
+        authors: state.get('article').get('authors')
     }
 };
 const mapActionCreators = {
     getOneArticle,
     addOneComment,
     getComments,
-    removeCommentById
+    removeCommentById,
+    getAllAuthors
 };
 export default connect(mapStateToProps, mapActionCreators)(Article);

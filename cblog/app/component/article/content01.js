@@ -11,85 +11,29 @@ import FromContent from './FromContent';
 class Content01 extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            visible: false,
-            date: null
-        };
-        this.showModal = () => {
-            this.setState({
-                visible: true,
-                data: new Date()
-            });
-            console.log('hello world');
-        };
-        this.closeModal = () => {
-            this.setState({
-                visible: false,
-            });
-        };
 
-        this.submit = (values) => {
-            values.key = Date.parse(new Date());
-            this.props.addOneUser(values);
-            this.closeModal();
-        }
     }
 
     componentDidMount() {
-        const {history, user} = this.props;
-        if (!user) {
-            history.replace('/login');
-        }
+
     }
 
     render() {
-        const columns = [{
-            title: '姓名',
-            dataIndex: 'name',
-            key: 'name',
-        }, {
-            title: '年龄',
-            dataIndex: 'age',
-            key: 'age',
-        }, {
-            title: '电话号码',
-            dataIndex: 'phone',
-            key: 'phone',
-        }, {
-            title: '邮箱',
-            dataIndex: 'email',
-            key: 'email',
-        }];
 
-        const data = this.props.data.toJS();
 
         return (
             <div>
-                <Button type="primary" onClick={this.showModal}>
-                    <Icon type="user-add"/>添加
-                </Button>
-                <Table columns={columns} dataSource={data}/>
-                {
-                    this.state.visible ? <FromContent date={this.state.date}
-                                                      submit={this.submit}
-                                                      showModal={this.showModal}
-                                                      closeModal={this.closeModal}
-                    /> : null
-                }
+                <audio
+                    src="http://vali.cp31.ott.cibntv.net/youku/697288884233A716CAD3640E7/03000801005809EB53D0F8068872C9B8E8EA74-A76C-697D-2DEB-373EC9A12A9C.mp4?sid=050943667986318634312_00_A3498e8ed4cc3b1edb5c7939c6e193450&sign=6c5f176dc627843d71081b51430f6e98&ctype=50"></audio>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        data: state.get('article').get('data'),
-        user: state.get('user').get('user')
-    }
+    return {}
 };
 
-const mapActionCreators = {
-    addOneUser
-};
+const mapActionCreators = {};
 
 export default connect(mapStateToProps, mapActionCreators)(Content01);

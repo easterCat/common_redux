@@ -29,11 +29,15 @@ class Registering extends React.Component {
                     user.username = values.username;
 
                     this.props.register(user)
-                        .then(() => {
-                            message.success('注册成功');
-                            setTimeout(() => {
-                                history.replace('/login');
-                            }, 1000);
+                        .then((result) => {
+                            if (result.code && result.code === 2) {
+                                message.error('相同用户已经存在!');
+                            } else {
+                                message.success('注册成功');
+                                setTimeout(() => {
+                                    history.replace('/login');
+                                }, 1000);
+                            }
                         })
                         .catch((error) => {
                             message.error(`注册失败${error}`);

@@ -5,6 +5,7 @@ import {server} from '../../../app.config';
 import {get, post, remove, update} from '../../util/netRequest';
 
 export const ADD_ONE_USER = 'ADD_ONE_USER';
+export const GET_ALL_AUTHORS = 'GET_ALL_AUTHORS';
 export const CREATE_ONE_ARTICLE = 'CREATE_ONE_ARTICLE';
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
 export const GET_ONE_ARTICLE = 'GET_ONE_ARTICLE';
@@ -20,6 +21,10 @@ export function addOneUser(value) {
             payload: value
         })
     }
+}
+
+export function getAllAuthors() {
+    return get(`${server}/user/authors`, GET_ALL_AUTHORS);
 }
 
 export function createOneArticle(data) {
