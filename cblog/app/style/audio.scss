@@ -1,0 +1,95 @@
+.audioBox {
+    position: relative;
+    width: 550px;
+    height: 80px;
+    background: lightgray;
+    .play, .pause {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        background: #4285f6;
+        border-radius: 90px;
+        cursor: pointer;
+    }
+    .play-btn, .pause-btn {
+        font-size: 24px;
+        line-height: 60px;
+        color: #fff;
+    }
+    .current {
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        left: 80px;
+        top: 25px;
+
+    }
+    .time {
+        position: absolute;
+        left: 150px;
+        top: 25px;
+        width: 230px;
+        height: 30px;
+    }
+    .mute, .nomute {
+        position: absolute;
+        left: 410px;
+        top: 25px;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        background: #4285f6;
+        border-radius: 90px;
+        cursor: pointer;
+    }
+    .nomute-btn, .mute-btn {
+        font-size: 16px;
+        line-height: 30px;
+        color: #fff;
+    }
+    .volume {
+
+        position: absolute;
+        left: 460px;
+        top: 25px;
+        width: 70px;
+        height: 30px;
+    }
+}
+
+input[type=range] {
+    background: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+    width: 300px;
+    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 5px;
+    border-radius: 10px; /*将轨道设为圆角的*/
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    margin-top: -8px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff;
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+}

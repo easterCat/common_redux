@@ -5,6 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
+import {Icon} from 'antd';
 
 
 class RecordAudio extends React.Component {
@@ -12,26 +13,20 @@ class RecordAudio extends React.Component {
         super(props);
         this.state = {
             isPlay: false,
-            isMuted: false,
+            openMuted: false,
             volume: 100,
             allTime: 0,
             currentTime: 0
         };
 
         this.millisecondToDate = (time) => {
-            const second = Math.floor(time % 60)
-            let minite = Math.floor(time / 60)
-            // let hour
-            // if(minite > 60) {
-            //   hour = minite / 60
-            //   minite = minite % 60
-            //   return `${Math.floor(hour)}:${Math.floor(minite)}:${Math.floor(second)}`
-            // }
+            const second = Math.floor(time % 60);
+            let minite = Math.floor(time / 60);
             return `${minite}:${second >= 10 ? second : `0${second}`}`
         };
-        this.controlAudio = (type, value) => {
+
+        this.controlAudio = (type, e) => {
             const audio = ReactDOM.findDOMNode(this.refs['audio']);
-            console.log(audio);
             switch (type) {
                 case 'allTime':
                     this.setState({
@@ -49,19 +44,13 @@ class RecordAudio extends React.Component {
                     this.setState({
                         isPlay: false
                     });
-                    break
-                case 'muted':
-                    this.setState({
-                        isMuted: !audio.muted
-                    });
-                    audio.muted = !audio.muted;
                     break;
                 case 'changeCurrentTime':
                     this.setState({
-                        currentTime: value
+                        currentTime: e.target.value
                     });
-                    audio.currentTime = value;
-                    if (value === audio.duration) {
+                    audio.currentTime = e.target.value;
+                    if (e.target.value === audio.duration) {
                         this.setState({
                             isPlay: false
                         })
@@ -77,24 +66,55 @@ class RecordAudio extends React.Component {
                         })
                     }
                     break;
+                //    是否静音
+                case 'muted':
+                    audio.muted = !audio.muted;
+                    //为true，则是静音模式
+                    if (audio.muted) {
+                        this.setState({
+                            openMuted: true,
+                            volume: 0
+                        });
+                    } else {
+                        this.setState({
+                            openMuted: false,
+                            volume: 100
+                        });
+                    }
+                    break;
+                //    调节音量
                 case 'changeVolume':
-                    audio.volume = value / 100;
+                    /**
+                     * muted=true开启静音模式,muted=false开启声音
+                     * @type {number}
+                     */
+                    audio.volume = e.target.value / 100;
                     this.setState({
-                        volume: value,
-                        isMuted: !value
+                        volume: e.target.value,
                     });
+                    //如果声音为0，开起静音
+                    if (e.target.value <= 0) {
+                        audio.muted = true;
+                        this.setState({
+                            openMuted: true
+                        })
+                    } else if (e.target.value >= 0) {
+                        audio.muted = false;
+                        this.setState({
+                            openMuted: false
+                        })
+                    }
                     break
             }
         }
     }
-
 
     componentDidMount() {
 
     }
 
     render() {
-        const {id, src} = this.props;
+        const {src} = this.props;
 
         return (
             <div className="audioBox">
@@ -104,43 +124,47 @@ class RecordAudio extends React.Component {
                        onCanPlay={() => this.controlAudio('allTime')}
                        onTimeUpdate={(e) => this.controlAudio('getCurrentTime')}
                 >
-                    您的浏览器不支持 audio 标签。
+                    音乐播放器
                 </audio>
                 <i className={this.state.isPlay ? 'pause' : 'play'}
                    onClick={() => this.controlAudio(this.state.isPlay ? 'pause' : 'play')}
-                ></i>
+                >
+                    {
+                        this.state.isPlay ? <Icon className="pause-btn" type="pause"/> :
+                            <Icon className="play-btn" type="caret-right"/>
+                    }
+                </i>
+
                 <span className="current">
                     {
                         this.millisecondToDate(this.state.currentTime) + '/' + this.millisecondToDate(this.state.allTime)
                     }
                 </span>
+
                 <input type="range"
                        className="time"
+                       min="0"
                        step="0.01"
                        max={this.state.allTime}
                        value={this.state.currentTime}
-                       onChange={(value) => this.controlAudio('changeCurrentTime', value)}
-                       style={{
-                           width: 50,
-                           height: 50
-                       }}
+                       onChange={(e) => this.controlAudio('changeCurrentTime', e)}
                 />
-                <i className={this.state.isMuted ? 'mute' : 'nomute'}
+
+                <i className={this.state.openMuted ? 'mute' : 'nomute'}
                    onClick={() => this.controlAudio('muted')}
-                   style={{
-                       display: 'block',
-                       width: 50,
-                       height: 50,
-                       background: 'red'
-                   }}>播放</i>
+                >
+                    {
+                        this.state.openMuted ? <Icon className="nomute-btn" type="check"/> :
+                            <Icon className="mute-btn" type="close"/>
+                    }
+                </i>
                 <input type="range"
                        className="volume"
-                       onChange={(value) => this.controlAudio('changeVolume', value)}
-                       value={this.state.isMuted ? 0 : this.state.volume}
-                       style={{
-                           width: 50,
-                           height: 50
-                       }}
+                       min="0"
+                       step="1"
+                       max="100"
+                       onChange={(e) => this.controlAudio('changeVolume', e)}
+                       value={this.state.openMuted ? 0 : this.state.volume}
                 />
             </div>
         )
