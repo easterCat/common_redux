@@ -38,6 +38,9 @@ class Header extends React.Component {
                     <Link to="/register">注册</Link>
                 </Menu.Item>
                 <Menu.Item>
+                    <Link to="/changeuser">注册</Link>
+                </Menu.Item>
+                <Menu.Item>
                     <Link to="/login" onClick={this.props.logout}>退出</Link>
                 </Menu.Item>
             </Menu>

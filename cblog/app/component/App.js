@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import Home from './Home/Home';
 import Register from './user/Register';
 import Login from './user/Login';
+import ChangeUser from './user/ChangeUser';
 import {Route} from 'react-router-dom'
 
 class App extends React.Component {
@@ -38,6 +39,7 @@ class App extends React.Component {
                 <Route path="/home" component={Home}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
+                <Route path="/changeuser" component={ChangeUser}/>
             </div>
         )
     }
