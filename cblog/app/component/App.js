@@ -20,6 +20,8 @@ class App extends React.Component {
             history,
             user
         } = this.props;
+        let arr = [1, 2, 3, 4];
+        console.log('展开运算符',...arr);
 
         if (user) {
             if (location.pathname === '/home' || location.pathname === '/') {
@@ -34,6 +36,7 @@ class App extends React.Component {
     }
 
     render() {
+
         return (
             <div className="app">
                 <Route path="/home" component={Home}/>

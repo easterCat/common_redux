@@ -19,10 +19,14 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: [{
-                    loader: 'babel-loader'
-                }],
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env', 'react'],
+                        plugins: [require('babel-plugin-transform-object-rest-spread')]
+                    }
+                }
             },
             {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
@@ -39,7 +43,7 @@ module.exports = {
         ]
     },
     devServer: {
-        // contentBase: './dist',//为一个目录下的文件提供本地服务器，在这里设置其所在目录
+        contentBase: './dist',//为一个目录下的文件提供本地服务器，在这里设置其所在目录
         historyApiFallback: true,//跳转将指向index.html
         inline: true,//开启自动刷新页面
         port: 3000,//设置监听端口3000
