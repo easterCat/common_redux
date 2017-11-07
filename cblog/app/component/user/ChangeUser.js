@@ -95,7 +95,10 @@ class ChangeUser extends React.Component {
                         <FormItem status="description" label="简介" type="textarea"
                                   defaultValue={this.props.user.get('description')}
                                   isDisabled={this.state.isDisabled} changeInput={this.changeInput}/>
-                    </div> : null
+                        <Link to="/home">
+                            <a href="">首页</a>
+                        </Link>
+                    </div>  : null
                 }
             </div>
         )

@@ -2,7 +2,7 @@
   "name": "cblog",
   "version": "1.0.0",
   "description": "this is a project about react",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "set NODE_ENV=production&&webpack -p --config webpack.pro.js",
