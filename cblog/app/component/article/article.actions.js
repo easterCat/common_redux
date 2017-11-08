@@ -31,8 +31,8 @@ export function createOneArticle(data) {
     return post(`${server}/home/createArticle`, data, CREATE_ONE_ARTICLE);
 }
 
-export function getAllArticles(page) {
-    return get(`${server}/home/articles/${page}`, GET_ALL_ARTICLES);
+export function getAllArticles(where) {
+    return get(`${server}/home/articles?skip=${where.skip}&&limit=${where.limit}`, GET_ALL_ARTICLES);
 }
 
 export function getOneArticle(id) {

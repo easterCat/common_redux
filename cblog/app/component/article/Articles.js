@@ -23,7 +23,11 @@ class Articles extends React.Component {
 
         //页码改变后的回调函数
         this.changePageNum = (page, pagesize) => {
-            this.props.getAllArticles(page);
+            let where = {
+                limit: 10,
+                skip: (page - 1) * 10
+            };
+            this.props.getAllArticles(where);
         };
 
         this.deleteOneArticle = (e, id) => {
@@ -35,7 +39,11 @@ class Articles extends React.Component {
 
     componentWillMount() {
         //初始化加载前10篇文章
-        this.props.getAllArticles(1);
+        let where = {
+            limit: 10,
+            skip: 0
+        };
+        this.props.getAllArticles(where);
     }
 
     render() {

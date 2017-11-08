@@ -2,6 +2,7 @@
  * Created by easterCat on 2017/10/30.
  */
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     context: path.resolve(__dirname, 'app'),
@@ -29,6 +30,17 @@ module.exports = {
                 }
             },
             {
+                test: /\.(woff|woff2|ttf|eot|svg)(\?]?.*)?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name (file) {
+                            return 'fonts/[name].[ext]'
+                        }
+                    }
+                }]
+            },
+            {
                 test: /.*\.(gif|png|jpe?g|svg)$/,
                 use: [{
                     loader: 'url-loader',
@@ -49,4 +61,11 @@ module.exports = {
         port: 3000,//设置监听端口3000
         hot: true,//开启热替换
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        })
+    ]
 };

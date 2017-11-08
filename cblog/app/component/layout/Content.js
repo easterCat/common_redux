@@ -7,12 +7,14 @@ import Audio from '../audio/Audio';
 import CreateArticle from '../article/createArticle';
 import Articles from '../article/Articles';
 import Article from '../article/Article';
+import Flow from '../flow/Flow';
 
 class Content extends React.Component {
     render() {
         return (
             <div>
                 <Route path="/home/audio" component={Audio}/>
+                <Route path="/home/flow" component={Flow}/>
                 <Route path="/home/createArticle" component={CreateArticle}/>
                 <Route path="/home/articles" component={Articles}/>
                 <Route path="/home/article/:id" component={Article}/>

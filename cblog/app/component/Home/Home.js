@@ -15,7 +15,7 @@ class Home extends React.Component {
         this.state = {
             collapsed: false
         };
-        this.ress = ['audio', 'createArticle', 'articles', 'article'];
+        this.ress = ['audio', 'createArticle', 'articles', 'article', 'flow'];
         this.res = null;
         const match = matchPath(this.props.history.location.pathname, {
             path: '/home/:res'
