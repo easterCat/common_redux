@@ -27,6 +27,10 @@ if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
 
 const reducer = combineReducers(reducers);
 
+/**
+ * function createStore(reducer,preloadedState,enhancer){ }
+ * @type {Store<S>}
+ */
 const store = createStore(
     reducer,
     Map({}),
