@@ -1,5 +1,5 @@
 import isPlainObject from 'lodash/isPlainObject'
-import $$observable from 'symbol-observable'
+// import $$observable from 'symbol-observable'
 
 /**
  * These are private action types reserved by Redux.
@@ -233,9 +233,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
         return { unsubscribe }
       },
 
-      [$$observable]() {
-        return this
-      }
+      // [$$observable]() {
+      //   return this
+      // }
     }
   }
 
@@ -249,6 +249,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
     subscribe,
     getState,
     replaceReducer,
-    [$$observable]: observable
+    // [$$observable]: observable
   }
 }
