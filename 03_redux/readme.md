@@ -2,6 +2,12 @@
 
 随着 javascript 单页应用的不断发展,javascript 需要管理比以往都要多的状态,管理不断变化的 state 非常困难,数据流动不断变的模糊不可预测,代码的开发与维护成为了变得越来越困难.redux 这类状态管理框架变出现了,通过限制更新发生的时间和方式,来使 state 的变化变得可以预测.
 
+redux 是一个很有用的框架,但是并不是非用不可,而是当你自己觉得可能需要 redux 的时候,就会找到他,并且使用他(_还有其他同类框架_)
+
+-   当你有大量的,随时间变化的数据
+-   当你需要一个单一可靠的 state 数据源
+-   当你把所有 state 放到顶部,或者父子兄弟之间的数据通信让你焦头烂额的时候
+
 ### 三大原则
 
 1. 单一数据源 (整个应用的 state 存放在一个 object tree 中,这个 object tree 只存在与唯一的一个 store 中)
@@ -51,6 +57,26 @@ let action2 = {
 };
 ```
 
+### action 生成器
+
+用于 action 的复用,实际上是返回一个对象的函数
+
+```
+function addSinger_action(payload) {
+    return {
+        type: "ADD_SINGER",
+        payload
+    };
+}
+
+function addActor_action(payload) {
+    return {
+        type: "ADD_ACTOR",
+        payload
+    };
+}
+```
+
 ### reducer
 
 reducer 是一个为了把 state 和 action 连接起来而诞生的纯函数,接收 state 和 action,然后返回一个新的 state
@@ -58,26 +84,50 @@ reducer 是一个为了把 state 和 action 连接起来而诞生的纯函数,�
 ```
 function add_singer(state, action) {
     if (action.type === "ADD_SINGER") {
-        return state.concat([action.payload]);
+        console.warn("发起了action=ADD_SINGER");
+        state = Object.assign({}, state, {
+            singer: state.singer.concat([action.payload])
+        });
+        return state;
     }
-
     return state;
 }
 
 function add_actor(state, action) {
     if (action.type === "ADD_ACTOR") {
-        return state.concat([action.paylaod]);
+        console.warn("发起了action=>ADD_ACTOR");
+        state = Object.assign({}, state, {
+            actor: state.actor.concat([action.payload])
+        });
+        return state;
     }
-
     return state;
 }
-
-function combineReducer(state, action) {
-    return {
-        add_singer: add_singer(state.singer, action),
-        add_actor: add_actor(state.actor, action)
-    };
-}
 ```
+
+改变state
+```
+state = add_actor(
+    state,
+    addActor_action({
+        name: "周润发",
+        desc: "一位很好的演员"
+    })
+);
+
+console.log(state);
+
+state = add_singer(
+    state,
+    addSinger_action({
+        name: "黎明",
+        desc: "一位很好的歌手"
+    })
+);
+
+console.log(state);
+```
+![01]()
+
 
 [Redux 中文文档](http://cn.redux.js.org/)
