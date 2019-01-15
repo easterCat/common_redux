@@ -135,14 +135,15 @@ console.log(state);
 
 ### redux 基础
 
-1. **action**
+1. **redux中的action**
 
     action 主要是把数据从应用传到 store 的有效载荷,它是 store 的唯一来源,通过 reducer 定义的 state 是初始化,一般写法中多设置为 null,undefined,{},[]等.通过 store.dispatch()将 action 传到 store.为了使用方便,一般会用 action 生成器来生成 action.
 
     redux 只用把 action 生成器的结果传给 dispatch()就可以发起 dispatch
 
 ```
-import { combineReducers, createStore } from "../redux/index";
+import { createStore } from "../redux/index";
+import reducer from './reducer';
 
 const ADD_SINGER = "ADD_SINGER";
 const ADD_ACTOR = "ADD_ACTOR";
