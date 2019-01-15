@@ -47,29 +47,29 @@ const store = createStore(reducer);
 // console.log(store);
 // console.log(store.getState());
 
-// bound_add_singer_action({
-//     name: "周华健",
-//     desc: "一位大帅哥"
-// });
+bound_add_singer_action({
+    name: "周华健",
+    desc: "一位大帅哥"
+});
 
-// bound_add_actor_action({
-//     name: "谢安琪",
-//     desc: "位小美女"
-// });
+bound_add_actor_action({
+    name: "谢安琪",
+    desc: "位小美女"
+});
 
-store.dispatch(
-    addSinger_action({
-        name: "周华健",
-        desc: "一位大帅哥"
-    })
-);
+// store.dispatch(
+//     addSinger_action({
+//         name: "周华健",
+//         desc: "一位大帅哥"
+//     })
+// );
 
-store.dispatch(
-    addActor_action({
-        name: "谢安琪",
-        desc: "一位小美女"
-    })
-);
+// store.dispatch(
+//     addActor_action({
+//         name: "谢安琪",
+//         desc: "一位小美女"
+//     })
+// );
 
 console.log(store.getState());
 
