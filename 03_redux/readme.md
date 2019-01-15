@@ -14,7 +14,7 @@ redux 是一个很有用的框架,但是并不是非用不可,而是当你自己
 2. state 是只读的,唯一能够改变 state 的只有 action
 3. 只能通过纯函数进行修改
 
-### state
+### state 基本概念
 
 state 是数据的状态集合,一般为一个对象
 
@@ -35,7 +35,7 @@ let state = {
 };
 ```
 
-### action
+### action 基本概念
 
 action 是一个普通的 javacript 对象,用来更新 state 并同时描述发生了什么.可以知道应用到底发生了什么,变化后可以知道为什么改变.
 
@@ -77,7 +77,7 @@ function addActor_action(payload) {
 }
 ```
 
-### reducer
+### reducer 基本概念
 
 reducer 是一个为了把 state 和 action 连接起来而诞生的纯函数,接收 state 和 action,然后返回一个新的 state
 
@@ -105,7 +105,8 @@ function add_actor(state, action) {
 }
 ```
 
-改变state
+改变 state
+
 ```
 state = add_actor(
     state,
@@ -127,7 +128,7 @@ state = add_singer(
 
 console.log(state);
 ```
-![01]()
 
+![01]()
 
 [Redux 中文文档](http://cn.redux.js.org/)
