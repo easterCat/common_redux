@@ -404,4 +404,12 @@ function bound_minus_actor_action(index) {
 
 [Redux 中文文档](http://cn.redux.js.org/)
 
+[Redux 中文文档](https://www.redux.org.cn/)
+
 [Redux 官方文档](https://redux.js.org/)
+
+[Redux 简明教程](https://github.com/kenberkeley/redux-simple-tutorial)
+
+[Understand Redux](https://kylewh.gitbooks.io/understand-redux/content/)
+
+[Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
