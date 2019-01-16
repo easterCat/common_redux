@@ -227,7 +227,8 @@ function bound_action_creater(){
 
 2. **redux 中 reducer**
 
-(oldState,action)=> newState 这种就是一个最简单的 reducer.
+> (oldState,action)=> newState 这种就是一个最简单的 reducer.
+
 禁止事项
 
 1. 修改传入的参数
@@ -316,7 +317,7 @@ const reducer = combineReducers({
 //或者将函数名更改
 ```
 
-3. store
+3. **redux 中 store**
 
 -   store 维护应用的 state
 -   提供 getState()方法获取 state
@@ -373,7 +374,7 @@ function bound_minus_actor_action(index) {
 
 ![04](https://github.com/easterCat/common_react/blob/master/03_redux/04.png?raw=true)
 
-当我们 shore.dispatch()之后返回的值就是一个用来注销该监听器的 unsubscribe 函数,源码:
+当我们 shore.dispatch()之后返回的值就是一个用来注销该监听器的 unsubscribe 函数,redux 中源码:
 
 ```
   function subscribe(listener) {
@@ -402,9 +403,9 @@ function bound_minus_actor_action(index) {
   }
 ```
 
-[Redux 中文文档](http://cn.redux.js.org/)
+[第一个 Redux 中文文档](http://cn.redux.js.org/)
 
-[Redux 中文文档](https://www.redux.org.cn/)
+[第二个 Redux 中文文档](https://www.redux.org.cn/)
 
 [Redux 官方文档](https://redux.js.org/)
 
