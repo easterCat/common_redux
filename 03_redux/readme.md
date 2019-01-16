@@ -57,7 +57,9 @@ let action2 = {
 };
 ```
 
-### action 生成器 (action 是一个对象,action 生成器是一个函数,两个不同的概念)
+### action 生成器
+
+> (action 是一个对象,action 生成器是一个函数,两个不同的概念)
 
 用于 action 的复用,实际上是返回一个对象的函数
 
@@ -135,7 +137,7 @@ console.log(state);
 
 ### redux 基础
 
-1. **redux中的action**
+1. **redux 中的 action**
 
     action 主要是把数据从应用传到 store 的有效载荷,它是 store 的唯一来源,通过 reducer 定义的 state 是初始化,一般写法中多设置为 null,undefined,{},[]等.通过 store.dispatch()将 action 传到 store.为了使用方便,一般会用 action 生成器来生成 action.
 
@@ -223,9 +225,182 @@ function bound_action_creater(){
 }
 ```
 
-2. reducer
+2. **redux 中 reducer**
+
+(oldState,action)=> newState 这种就是一个最简单的 reducer.
+禁止事项
+
+1. 修改传入的参数
+2. 执行有副作用的操作,如 api 请求,变量修改,路由跳转
+3. 调用非纯函数,如 Date.now()或 Math.random()
+
+```
+const singerState = {
+    singer: [
+        {
+            name: "刘德华",
+            desc: "一位演员"
+        }
+    ]
+}; //state初始状态
+
+const actorState = {
+    actor: [
+        {
+            name: "郭富城",
+            desc: "一位歌手"
+        }
+    ]
+}; //state初始状态
+
+const reducer = function(state = {}, action) {
+    return {
+        singerState: singer_reducer(state.singerState, action),
+        actorState: actor_reducer(state.actorState, action)
+    };
+};
+// console.log(reducer);
+
+export default reducer;
+
+function singer_reducer(state = singerState, action) {
+    if (action.type === "ADD_SINGER") {
+        console.warn("发起了action=ADD_SINGER");
+        state = Object.assign({}, state, {
+            singer: state.singer.concat([action.payload])
+        }); //Object.assgin会修改第一个参数的值,所以将state放到二号位
+        return state;
+    }
+    return state; //遇到未知的 action 时,一定要返回旧的 state
+}
+
+function actor_reducer(state = actorState, action) {
+    if (action.type === "ADD_ACTOR") {
+        console.warn("发起了action=>ADD_ACTOR");
+        state = Object.assign({}, state, {
+            actor: state.actor.concat([action.payload])
+        });
+        return state;
+    }
+    if (action.type === "MINUS_ACTOR") {
+        console.warn("发起了action=>MINUS_ACTOR");
+        state.actor = state.actor.splice(action.index, 1);
+        return state;
+    }
+    return state;
+}
+
+```
+
+redux 当然提供了的便捷方法 combineReducers().combineReducers()只是生成一个函数 combination,这个函数将调用所有的 reducer,每个 reducer 根据 key 值筛选出 state 的一部分数据进行处理.这个函数再将所有的 reducer 结果合成一个大对象.
+
+```
+import { combineReducers } from "../redux/index";
+
+// 返回一个combination函数
+const reducer = combineReducers({
+    singer_reducer,
+    actor_reducer
+});
+
+// console.log(reducer);
+```
+
+此时在 store 中,数据的 key 值会变为 singer_reducer 和 actor_reducer,我们可以通过设置不同 key 来更改在 store 中存放的 key
+
+```
+{
+    singerState:singer_reducer,
+    actorState:actor_reducer
+}
+//或者将函数名更改
+```
 
 3. store
+
+-   store 维护应用的 state
+-   提供 getState()方法获取 state
+-   提供 dispatch()方法触发 action,更新 state (action->reducer->newState)
+-   subscribe()注册监听器
+-   subscribe()返回一个函数用来注销监听器
+    ![03](https://github.com/easterCat/common_react/blob/master/03_redux/03.png?raw=true)
+
+```
+const store = createStore(reducer);
+
+const unsubscribe = store.subscribe(listener);
+
+bound_add_singer_action({
+    name: "周华健",
+    desc: "一位大帅哥"
+});
+
+bound_add_actor_action({
+    name: "谢安琪",
+    desc: "位小美女"
+});
+
+bound_minus_actor_action(1);
+
+unsubscribe();
+
+bound_add_singer_action({
+    name: "周杰伦",
+    desc: "歌手一枚"
+});
+
+bound_add_actor_action({
+    name: "周星驰",
+    desc: "笑了"
+});
+
+function listener() {
+    console.log(store.getState());
+}
+
+function bound_add_singer_action(payload) {
+    return store.dispatch(addSinger_action(payload));
+}
+
+function bound_add_actor_action(payload) {
+    return store.dispatch(addActor_action(payload));
+}
+
+function bound_minus_actor_action(index) {
+    return store.dispatch(minusActor_action(index));
+}
+```
+
+![04](https://github.com/easterCat/common_react/blob/master/03_redux/04.png?raw=true)
+
+当我们 shore.dispatch()之后返回的值就是一个用来注销该监听器的 unsubscribe 函数,源码:
+
+```
+  function subscribe(listener) {
+    if (typeof listener !== 'function') {
+      throw new Error('Expected listener to be a function.')
+    }
+
+    let isSubscribed = true
+
+    ensureCanMutateNextListeners()
+    <!-- 将listener推入到执行队列中去 -->
+    nextListeners.push(listener)
+
+    return function unsubscribe() {
+      if (!isSubscribed) {
+        return
+      }
+
+      isSubscribed = false
+
+      ensureCanMutateNextListeners()
+      <!-- 找到监听的listener,并将函数从队列中删除 -->
+      const index = nextListeners.indexOf(listener)
+      nextListeners.splice(index, 1)
+    }
+  }
+```
 
 [Redux 中文文档](http://cn.redux.js.org/)
 

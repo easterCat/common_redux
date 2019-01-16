@@ -1,25 +1,9 @@
 import { combineReducers, createStore } from "../redux/index";
-
-const singerState = {
-    singer: [
-        {
-            name: "刘德华",
-            desc: "一位演员"
-        }
-    ]
-};
-
-const actorState = {
-    actor: [
-        {
-            name: "郭富城",
-            desc: "一位歌手"
-        }
-    ]
-};
+import reducer from "./02_reducers";
 
 const ADD_SINGER = "ADD_SINGER";
 const ADD_ACTOR = "ADD_ACTOR";
+const MINUS_ACTOR = "MINUS_ACTOR";
 
 function addSinger_action(payload) {
     return {
@@ -34,13 +18,12 @@ function addActor_action(payload) {
     };
 }
 
-// 返回一个combination函数
-const reducer = combineReducers({
-    singer_reducer,
-    actor_reducer
-});
-
-// console.log(reducer);
+function minusActor_action(index) {
+    return {
+        type: MINUS_ACTOR,
+        index
+    };
+}
 
 const store = createStore(reducer);
 
@@ -56,6 +39,8 @@ bound_add_actor_action({
     name: "谢安琪",
     desc: "位小美女"
 });
+
+bound_minus_actor_action(1);
 
 // store.dispatch(
 //     addSinger_action({
@@ -81,24 +66,6 @@ function bound_add_actor_action(payload) {
     return store.dispatch(addActor_action(payload));
 }
 
-function singer_reducer(state = singerState, action) {
-    if (action.type === "ADD_SINGER") {
-        console.warn("发起了action=ADD_SINGER");
-        state = Object.assign({}, state, {
-            singer: state.singer.concat([action.payload])
-        });
-        return state;
-    }
-    return state;
-}
-
-function actor_reducer(state = actorState, action) {
-    if (action.type === "ADD_ACTOR") {
-        console.warn("发起了action=>ADD_ACTOR");
-        state = Object.assign({}, state, {
-            actor: state.actor.concat([action.payload])
-        });
-        return state;
-    }
-    return state;
+function bound_minus_actor_action(index) {
+    return store.dispatch(minusActor_action(index));
 }
