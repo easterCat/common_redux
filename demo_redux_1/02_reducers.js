@@ -56,7 +56,10 @@ function actor_reducer(state = actorState, action) {
     }
     if (action.type === "MINUS_ACTOR") {
         console.warn("发起了action=>MINUS_ACTOR");
-        state.actor = state.actor.splice(action.index, 1);
+        let actor = [].concat(state.actor);
+        state = Object.assign({}, state, {
+          actor: actor.splice(action.index, 1)
+        });
         return state;
     }
     return state;

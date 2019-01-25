@@ -1,4 +1,4 @@
-## redux 的概述
+# redux 的概述
 
 随着 javascript 单页应用的不断发展,javascript 需要管理比以往都要多的状态,管理不断变化的 state 非常困难,数据流动不断变的模糊不可预测,代码的开发与维护成为了变得越来越困难.redux 这类状态管理框架变出现了,通过限制更新发生的时间和方式,来使 state 的变化变得可以预测.
 
@@ -8,13 +8,13 @@ redux 是一个很有用的框架,但是并不是非用不可,而是当你自己
 - 当你需要一个单一可靠的 state 数据源
 - 当你把所有 state 放到顶部,或者父子兄弟之间的数据通信让你焦头烂额的时候
 
-### 三大原则
+## 三大原则
 
 1. 单一数据源 (整个应用的 state 存放在一个 object tree 中,这个 object tree 只存在与唯一的一个 store 中)
 2. state 是只读的,唯一能够改变 state 的只有 action
 3. 只能通过纯函数进行修改
 
-### state 基本概念
+## state 基本概念
 
 state 是数据的状态集合,一般为一个对象
 
@@ -35,7 +35,7 @@ let state = {
 };
 ```
 
-### action 基本概念
+## action 基本概念
 
 action 是一个普通的 javacript 对象,用来更新 state 并同时描述发生了什么.可以知道应用到底发生了什么,变化后可以知道为什么改变.
 
@@ -57,7 +57,7 @@ let action2 = {
 };
 ```
 
-### action 生成器
+## action 生成器
 
 > (action 是一个对象,action 生成器是一个函数,两个不同的概念)
 
@@ -79,7 +79,7 @@ function addActor_action(payload) {
 }
 ```
 
-### reducer 基本概念
+## reducer 基本概念
 
 reducer 是一个为了把 state 和 action 连接起来而诞生的纯函数,接收 state 和 action,然后返回一个新的 state
 
@@ -135,13 +135,13 @@ console.log(state);
 
 > 上面就是 state,action 以及 reducer 连接二者的方式,redux 里面提供了更多的便捷操作
 
-### redux 基础
+## redux 基础
 
-1. **redux 中的 action**
+### 1. redux 中的 action
 
-   action 主要是把数据从应用传到 store 的有效载荷,它是 store 的唯一来源,通过 reducer 定义的 state 是初始化,一般写法中多设置为 null,undefined,{},[]等.通过 store.dispatch()将 action 传到 store.为了使用方便,一般会用 action 生成器来生成 action.
+action 主要是把数据从应用传到 store 的有效载荷,它是 store 的唯一来源,通过 reducer 定义的 state 是初始化,一般写法中多设置为 null,undefined,{},[]等.通过 store.dispatch()将 action 传到 store.为了使用方便,一般会用 action 生成器来生成 action.
 
-   redux 只用把 action 生成器的结果传给 dispatch()就可以发起 dispatch
+redux 只用把 action 生成器的结果传给 dispatch()就可以发起 dispatch
 
 ```
 import { createStore } from "../redux/index";
@@ -225,7 +225,7 @@ function bound_action_creater(){
 }
 ```
 
-2. **redux 中 reducer**
+### 2. redux 中 reducer
 
 > (oldState,action)=> newState 这种就是一个最简单的 reducer.
 
@@ -285,7 +285,10 @@ function actor_reducer(state = actorState, action) {
     }
     if (action.type === "MINUS_ACTOR") {
         console.warn("发起了action=>MINUS_ACTOR");
-        state.actor = state.actor.splice(action.index, 1);
+        let actor = [].concat(state.actor);
+        state = Object.assign({}, state, {
+          actor: actor.splice(action.index, 1)
+        });
         return state;
     }
     return state;
@@ -317,7 +320,7 @@ const reducer = combineReducers({
 //或者将函数名更改
 ```
 
-3. **redux 中 store**
+### 3. redux 中 store
 
 - store 维护应用的 state
 - 提供 getState()方法获取 state
