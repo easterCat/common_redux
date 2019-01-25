@@ -4,9 +4,9 @@
 
 redux 是一个很有用的框架,但是并不是非用不可,而是当你自己觉得可能需要 redux 的时候,就会找到他,并且使用他(_还有其他同类框架_)
 
--   当你有大量的,随时间变化的数据
--   当你需要一个单一可靠的 state 数据源
--   当你把所有 state 放到顶部,或者父子兄弟之间的数据通信让你焦头烂额的时候
+- 当你有大量的,随时间变化的数据
+- 当你需要一个单一可靠的 state 数据源
+- 当你把所有 state 放到顶部,或者父子兄弟之间的数据通信让你焦头烂额的时候
 
 ### 三大原则
 
@@ -131,7 +131,7 @@ state = add_singer(
 console.log(state);
 ```
 
-![01](https://github.com/easterCat/common_react/blob/master/03_redux/01.png?raw=true)
+![01](https://github.com/easterCat/common_redux/blob/master/image/01.png?raw=true)
 
 > 上面就是 state,action 以及 reducer 连接二者的方式,redux 里面提供了更多的便捷操作
 
@@ -139,9 +139,9 @@ console.log(state);
 
 1. **redux 中的 action**
 
-    action 主要是把数据从应用传到 store 的有效载荷,它是 store 的唯一来源,通过 reducer 定义的 state 是初始化,一般写法中多设置为 null,undefined,{},[]等.通过 store.dispatch()将 action 传到 store.为了使用方便,一般会用 action 生成器来生成 action.
+   action 主要是把数据从应用传到 store 的有效载荷,它是 store 的唯一来源,通过 reducer 定义的 state 是初始化,一般写法中多设置为 null,undefined,{},[]等.通过 store.dispatch()将 action 传到 store.为了使用方便,一般会用 action 生成器来生成 action.
 
-    redux 只用把 action 生成器的结果传给 dispatch()就可以发起 dispatch
+   redux 只用把 action 生成器的结果传给 dispatch()就可以发起 dispatch
 
 ```
 import { createStore } from "../redux/index";
@@ -182,7 +182,7 @@ function addActor_action(payload) {
 }
 ```
 
-![02](https://github.com/easterCat/common_react/blob/master/03_redux/02.png?raw=true)
+![02](https://github.com/easterCat/common_redux/blob/master/image/02.png?raw=true)
 
     我们也可以创建一个函数用于返回 dispatch 触发器
 
@@ -319,12 +319,12 @@ const reducer = combineReducers({
 
 3. **redux 中 store**
 
--   store 维护应用的 state
--   提供 getState()方法获取 state
--   提供 dispatch()方法触发 action,更新 state (action->reducer->newState)
--   subscribe()注册监听器
--   subscribe()返回一个函数用来注销监听器
-    ![03](https://github.com/easterCat/common_react/blob/master/03_redux/03.png?raw=true)
+- store 维护应用的 state
+- 提供 getState()方法获取 state
+- 提供 dispatch()方法触发 action,更新 state (action->reducer->newState)
+- subscribe()注册监听器
+- subscribe()返回一个函数用来注销监听器
+  ![03](https://github.com/easterCat/common_redux/blob/master/image/03.png?raw=true)
 
 ```
 const store = createStore(reducer);
@@ -372,7 +372,7 @@ function bound_minus_actor_action(index) {
 }
 ```
 
-![04](https://github.com/easterCat/common_react/blob/master/03_redux/04.png?raw=true)
+![04](https://github.com/easterCat/common_redux/blob/master/image/04.png?raw=true)
 
 当我们 shore.dispatch()之后返回的值就是一个用来注销该监听器的 unsubscribe 函数,redux 中源码:
 
